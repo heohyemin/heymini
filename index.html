@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heymini</title>
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+    <header>
+        <h1 class="logo">
+            <a href="/index.html">Heymini</a>
+        </h1>
+        <div class="head_profile">
+            <img src="/assets/images/profile_img.png">
+        </div>
+    </header>
+
+    <nav class="site_lnb" id="sidebar">
+        <div class="lnb_btn">
+            <a href="#" id="toggleBtn"><img src="/assets/images/lnb_icon.svg"></a>
+        </div>
+        <ul class="lnb_menu">
+            <li>
+                <a href="#">
+                    <span class="icon">🏠</span> <span class="text">홈</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📁</span>
+                    <span class="text">포트폴리오</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">⚙️</span>
+                    <span class="text">설정</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="container">
+        <div class="hero">
+            <div class="hero_title">
+                <h4><span><img src="/assets/images/logo_icon.png"></span>인사담당자님, 안녕하세요</h4>
+                <h2>디자이너 필요없으세요?</h2>
+            </div>
+            <div class="hero_box">
+                <div class="hero_box_header">
+                    <textarea placeholder="Heymini의 포트폴리오"></textarea>
+                </div>
+                <div class="hero_box_footer">
+                    <div class="box_f_left">
+                        <span class="plus_icon"><img src="/assets/images/plus_icon.svg"></span>
+                        <span class="tools_icon"><img src="/assets/images/tools_icon.svg">도구</span>
+                    </div>
+                    <div class="box_f_right">
+                        <div class="drop_down">
+                            <select class="select">
+                                <option>구직 모드</option>
+                                <option>열일 모드</option>
+                                <option>휴가 모드</option>
+                            </select>
+                            <img class="arrow" src="/assets/images/arrow_down_icon.svg" alt="" />
+                        </div>
+                        <a class="mailto" href="mailto:heohm89@naver.com"><img src="/assets/images/mail_icon.svg"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="keyword">
+                <ul>
+                    <li>
+                        <a href="">🍌 웹 디자인</a>
+                    </li>
+                    <li>
+                        <a href="">웹 사이트 코딩</a>
+                    </li>
+                    <li>
+                        <a href="">콘텐츠 디자인</a>
+                    </li>
+                    <li>
+                        <a href="">상세 페이지 디자인</a>
+                    </li>
+                    <li>
+                        <a href="">기타</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="background: #ccc;"></section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('toggleBtn');
+        const sidebar = document.getElementById('sidebar');
+
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // a 태그의 기본 이동 동작 방지
+                
+                // expanded 클래스를 토글 (있으면 제거, 없으면 추가)
+                sidebar.classList.toggle('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
