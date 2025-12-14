@@ -300,14 +300,16 @@ section.container2 {
 .portfoli_list ul li {
     width: calc(33.3% - 10px);
     margin-bottom: 10px;
-    min-height: 285px;
-    background-color: pink;
+    min-height: 245px;
+    /* background-color: pink; */
     border-radius: 25px;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.10);
     position: relative;
     overflow: hidden;
     cursor: pointer;
 }
+
+.portfoli_list ul li img { width:100%; height: auto;}
 
 .pf_overlay {
     position: absolute;
