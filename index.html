@@ -221,7 +221,46 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const container2 = document.querySelector('.container2');
+          const chatQ = container2.querySelector('.chat_q');
+          const typing = container2.querySelector('.chat_typing');
+          const chatA = container2.querySelector('.chat_a');
+        
+          let played = false;
+        
+          const observer = new IntersectionObserver(
+            entries => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting && !played) {
+                  played = true;
+        
+                  // 1. Q 등장 (우 → 좌)
+                  chatQ.classList.add('show');
+        
+                  // 2. typing dots (A 위치)
+                  setTimeout(() => {
+                    typing.classList.add('show');
+                  }, 700);
+        
+                  // 3. typing → answer
+                  setTimeout(() => {
+                    typing.classList.remove('show');
+                    chatA.classList.add('show');
+                  }, 2000);
+                }
+              });
+            },
+            { threshold: 0.3 }
+          );
+        
+          observer.observe(container2);
+        });
+    </script>
 </body>
 
 </html>
+
 
