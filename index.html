@@ -92,28 +92,26 @@
                     <li><a href="#section_uxui">웹 퍼블리싱</a></li>
                     <li><a href="#section_content">프로모션 디자인</a></li>
                     <li><a href="#section_brand">마케팅/브랜딩 디자인</a></li>
-                    <li><a href="#section_detail">상세 페이지 디자인</a></li>
+                    <li><a href="#section_detail">상세 페이지</a></li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section class="container2" id="section_home" data-title="포트폴리오 전체">
-        <div class="chat">
-            <div class="chat_box">
-                <div class="chat_q">
-                   웹과 모바일에서는 어떤 작업들을 해왔나요?
-                </div>
-    
-                <div class="chat_a_wrap">
-                    <div class="chat_a">
-                        <div class="chat_typing">
-                            <span></span><span></span><span></span>
-                        </div>
-                        
-                        <h4 class="chat_title">포트폴리오 전체</h4>
-                        <p>웹과 모바일을 아우르는 UI 디자인을 중심으로<br />퍼블리싱과 브랜딩까지 함께 작업해왔어요.</p>
+        <div class="chat_box">
+            <div class="chat_q">
+               웹과 모바일에서는 어떤 작업들을 해왔나요?
+            </div>
+
+            <div class="chat_a_wrap">
+                <div class="chat_a">
+                    <div class="chat_typing">
+                        <span></span><span></span><span></span>
                     </div>
+                    
+                    <h4 class="chat_title">포트폴리오 전체</h4>
+                    <p>웹과 모바일을 아우르는 UI 디자인을 중심으로<br />퍼블리싱과 브랜딩까지 함께 작업해왔어요.</p>
                 </div>
             </div>
         </div>
@@ -221,46 +219,9 @@
             });
         });
     </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const container2 = document.querySelector('.container2');
-          const chatQ = container2.querySelector('.chat_q');
-          const typing = container2.querySelector('.chat_typing');
-          const chatA = container2.querySelector('.chat_a');
-        
-          let played = false;
-        
-          const observer = new IntersectionObserver(
-            entries => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting && !played) {
-                  played = true;
-        
-                  // 1. Q 등장 (우 → 좌)
-                  chatQ.classList.add('show');
-        
-                  // 2. typing dots (A 위치)
-                  setTimeout(() => {
-                    typing.classList.add('show');
-                  }, 700);
-        
-                  // 3. typing → answer
-                  setTimeout(() => {
-                    typing.classList.remove('show');
-                    chatA.classList.add('show');
-                  }, 2000);
-                }
-              });
-            },
-            { threshold: 0.3 }
-          );
-        
-          observer.observe(container2);
-        });
-    </script>
 </body>
 
 </html>
+
 
 
