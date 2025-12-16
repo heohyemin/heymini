@@ -99,6 +99,145 @@
     </section>
 
     <section class="container2" id="section_home" data-title="포트폴리오 전체">
+
+
+<style>
+        /* ========== container2 인터랙션 관련 신규 CSS 시작 (주석 없음) ========== */
+        .container2 {
+            min-height: 100vh;
+            padding: 50px 20px;
+            background-color: #fff;
+            overflow-x: hidden; /* 슬라이드 인/아웃 시 스크롤바 방지 */
+        }
+
+        .chat-area {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .chat-q {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px 20px 5px 20px;
+            margin-bottom: 20px;
+            float: right;
+            clear: both;
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .container2.active .chat-q {
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .chat-a-wrap {
+            float: left;
+            clear: both;
+            margin-top: 10px;
+            min-height: 30px; /* 동그라미 공간 확보 */
+        }
+
+        .chat-a {
+            background-color: #e9ecef;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 20px 20px 20px 5px;
+            display: inline-block;
+        }
+
+        .hidden { display: none !important; }
+
+        /* 동그라미 3개 애니메이션 (chat_a 위치) */
+        .thinking-dots {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            padding: 0 15px;
+        }
+
+        .thinking-dots span {
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background-color: #888;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translateY(0);
+            animation: bounce 1.2s infinite ease-in-out;
+        }
+
+        .thinking-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+
+        /* 포트폴리오 리스트 스타일 */
+        .portfolio-list {
+            margin-top: 50px;
+            clear: both;
+        }
+
+        .portfolio-item {
+            border-top: 1px solid #eee;
+            padding: 20px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .portfolio-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .main-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sub-title {
+            font-size: 1em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .hashtag-list {
+            margin-top: 10px;
+        }
+
+        .hashtag {
+            display: inline-block;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+        /* ========== container2 인터랙션 관련 신규 CSS 끝 ========== */
+</style>
+        
         <div class="chat_box">
             <div class="chat_q">
                웹과 모바일에서는 어떤 작업들을 해왔나요?
@@ -219,9 +358,63 @@
             });
         });
     </script>
+
+    <script>
+        // ========== container2 인터랙션 관련 신규 JavaScript 시작 (주석 없음) ==========
+        function startChatAnimation() {
+            const container2 = document.getElementById('container2');
+            const chatQ = container2.querySelector('.chat-q');
+            const thinkingDots = document.getElementById('thinkingDots');
+            const chatA = document.getElementById('chatA');
+            const portfolioList = document.getElementById('portfolioList');
+
+            // 1. chat_q 영역이 우측에서 좌측으로 나오는 인터렉션
+            // CSS에서 처리 (container2.active가 추가되면 애니메이션 시작)
+            container2.classList.add('active');
+
+            // chat_q 애니메이션 시간 (0.8초) 이후 다음 단계 시작
+            const chatQAnimDuration = 800;
+            
+            setTimeout(() => {
+                // 2. chat_q가 나오고 난 후 chat_a 답변을 생각하는 듯한 동그라미 3개 인터렉션 시작
+                // 2-1. 동그라미 3개는 chat_a 의 위치에서 나오면 좋겠음
+                thinkingDots.classList.remove('hidden');
+
+                // 생각하는 시간 설정 (예: 2초)
+                const thinkingDuration = 2000;
+
+                setTimeout(() => {
+                    // 3. 이후 답변 나오기
+                    thinkingDots.classList.add('hidden');
+                    chatA.classList.remove('hidden');
+
+                    // 답변이 나온 후 잠시 대기 (예: 0.5초)
+                    const answerDisplayDuration = 500;
+
+                    setTimeout(() => {
+                        // 4. 답변 나온 후 리스트형태의 포트폴리오 나오기
+                        portfolioList.classList.remove('hidden');
+                    }, answerDisplayDuration);
+
+                }, thinkingDuration);
+
+            }, chatQAnimDuration);
+        }
+
+        // 주의: 실제 환경에서는 이 함수를 스크롤 이벤트 감지 후 실행해야 합니다.
+        // 예를 들어, container2가 화면에 보이기 시작할 때 실행
+        // 지금은 페이지 로드 후 바로 실행되도록 설정합니다.
+        // window.onload = startChatAnimation; 
+        
+        // 간편 테스트를 위해 0.5초 후 시작
+        setTimeout(startChatAnimation, 500); 
+        
+        // ========== container2 인터랙션 관련 신규 JavaScript 끝 ==========
+    </script>
 </body>
 
 </html>
+
 
 
 
