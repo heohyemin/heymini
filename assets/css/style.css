@@ -296,6 +296,7 @@ section.container2 {
 .chat_box .archive_list { width: 100%; }
 .chat_box .archive_list a dl { border-bottom:1px solid #ddd; padding:0 0 2rem 0; margin:0 0 2rem 0; }
 .chat_box .archive_list a dl dt { font-weight:bold; color:#444746; font-size:1.25rem; margin-bottom:5px; }
+.chat_box .archive_list a dl dt:hover { text-decoration: underline; text-decoration-thickness: 2px; }
 .chat_box .archive_list a dl dd p { margin-bottom: 15px; }
 .hashtag code { font-size: .78rem; background: #e9eef6; border-radius: 4px; padding:5px 8px; margin-right:8px }
 .hashtag code.featured { background: #d3e3fd; color:#0842a0; }
@@ -498,6 +499,24 @@ padding:10rem 0; width: 75%;
 }
 
 
+.content_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.content_grid a {
+    display: block;
+}
+
+.content_grid img {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+
 /* -----------------------------------------------------------
    Media Query
    ----------------------------------------------------------- */
@@ -509,4 +528,7 @@ padding:10rem 0; width: 75%;
     /* .hero_box { height: 150px; } */
     .box_f_left { display: none; }
     .keyword ul li a { margin-bottom:5px; }
+    .content_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
