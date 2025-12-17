@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDT 사용자 화면 UI/UX 개선 | Heymini</title>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="page-enter">
+
+<header class="scrolled">
+    <h1 class="logo">
+        <a href="../index.html#section_home">Heymini</a>
+    </h1>
+    <div class="header_center" style="opacity:1; pointer-events:auto;">
+        <div class="current_title"><span>프로젝트 상세</span></div>
+    </div>
+    <div class="head_profile">
+        <img src="../assets/images/profile_img.png" alt="프로필">
+    </div>
+</header>
+
+<nav class="site_lnb" id="sidebar">
+    <div class="lnb_btn">
+        <a href="#" id="toggleBtn">
+            <img src="../assets/images/lnb_icon.svg" alt="메뉴">
+        </a>
+    </div>
+    <ul class="lnb_menu">
+        <li>
+            <a href="../index.html#section1"><span class="icon">🏠</span><span class="text">홈</span></a>
+        </li>
+        <li>
+            <a href="../index.html#section_home"><span class="icon">📁</span><span class="text">포트폴리오</span></a>
+        </li>
+        <li>
+            <a href="mailto:heohm89@naver.com"><span class="icon">🙋</span><span class="text">연락주세요</span></a>
+        </li>
+    </ul>
+</nav>
+
+<section class="sub_container">
+
+    <a href="../index.html#section_home" class="back_to_list">← Back to Portfolio</a>
+
+    <div class="sub_title">
+        <h2>NDT 사용자 화면 UI/UX 개선</h2>
+        <p>
+            운영 중인 NDT(Net Desktop) 사용자 화면 UI/UX 개선 프로젝트로,
+            PC·태블릿 환경에서 실제 사용 시나리오를 기준으로 화면을 재구성했습니다.
+        </p>
+        <div class="hashtag">
+            <code>#UI/UX디자인</code>
+            <code>#PC</code>
+            <code>#Tablet</code>
+        </div>
+    </div>
+
+    <!-- 대표 이미지 -->
+    <div class="project-image main">
+        <img src="../assets/images/ndt/ndt_main_pc.png" alt="NDT 사용자 메인 화면">
+        <p class="img_caption">NDT 사용자 메인 화면 (PC 환경)</p>
+    </div>
+
+    <div class="summary">
+        <h3>Project Summary</h3>
+        <p>
+            NDT 사용자 화면은 접속 상태 확인과 실행 작업이 빈번한 서비스로,
+            기존 UX에서는 상태 전달이 분산되어 사용 흐름 파악이 어려웠습니다.
+            본 프로젝트에서는 접속 → 확인 → 실행의 단계별 UX 흐름을 기준으로
+            화면 구조를 재정리했습니다.
+        </p>
+    </div>
+
+    <div class="summary">
+        <h3>As-Is 문제점</h3>
+        <ul>
+            <li>상태 전달이 분산되어 현재 상황 인지가 어려움</li>
+            <li>팝업 중심 UX로 사용 흐름이 끊김</li>
+            <li>디바이스별 UI 밀도 차이 발생</li>
+        </ul>
+    </div>
+
+    <!-- UX Flow -->
+    <div class="summary">
+        <h3>UX Flow</h3>
+        <div class="image-compare">
+            <div>
+                <span class="label">접속</span>
+                <img src="../assets/images/ndt/ndt_step1.png" alt="접속 화면">
+            </div>
+            <div>
+                <span class="label">상태 확인</span>
+                <img src="../assets/images/ndt/ndt_step2.png" alt="상태 확인 화면">
+            </div>
+            <div>
+                <span class="label">실행</span>
+                <img src="../assets/images/ndt/ndt_step3.png" alt="실행 화면">
+            </div>
+        </div>
+    </div>
+
+    <div class="summary">
+        <h3>To-Be 개선 방향</h3>
+        <ul>
+            <li>단계별 UX 흐름 정리 (접속 → 확인 → 실행)</li>
+            <li>알림·확인 팝업 구조 단순화</li>
+            <li>PC·태블릿 간 UX 일관성 확보</li>
+        </ul>
+
+        <div class="image-compare">
+            <div>
+                <span class="label">PC</span>
+                <img src="../assets/images/ndt/ndt_pc.png" alt="PC 화면">
+            </div>
+            <div>
+                <span class="label">Tablet</span>
+                <img src="../assets/images/ndt/ndt_tablet.png" alt="Tablet 화면">
+            </div>
+        </div>
+    </div>
+
+    <div class="summary">
+        <h3>결과</h3>
+        <ul>
+            <li>사용 흐름 이해도 향상</li>
+            <li>디바이스 간 경험 차이 감소</li>
+            <li>서비스 전반의 UX 안정성 확보</li>
+        </ul>
+    </div>
+
+    <div class="navigation">
+        <a href="./fb-agent.html" class="back">← Back</a>
+        <a href="../index.html#section_home" class="next">Portfolio →</a>
+    </div>
+
+</section>
+
+<script>
+window.addEventListener('load', () => {
+    document.body.classList.add('page-enter-active');
+});
+</script>
+
+</body>
+</html>
