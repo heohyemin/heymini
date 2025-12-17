@@ -37,7 +37,7 @@ a:hover { transition: .3s ease-out; }
 input[type=text], textarea { font-size:1rem; color:#444746; border:0; font-family: 'Pretendard';  }
 input:focus, select:focus, textarea:focus {outline:none;}
 
-body { position: relative; width: 100%; font-size:1rem; line-height:1.5rem; }
+body { position: relative; width: 100%; font-size:1rem; line-height:1.57rem; }
 
 /* -----------------------------------------------------------
    Header Styles (Updated)
@@ -159,9 +159,7 @@ header.scrolled .header_center {
     font-weight: 600;
 }
 
-/* -----------------------------------------------------------
-   Navigation (LNB)
-   ----------------------------------------------------------- */
+
 nav.site_lnb {
     width: 80px;
     background: #e9eef6;
@@ -271,9 +269,9 @@ a.mailto { vertical-align: middle; }
    Section: Portfolio (Container 2)
    ----------------------------------------------------------- */
 section.container2 {
-    height: 100vh;
+    height: 100%;
     background: #fff;
-    margin: 0 auto;
+    margin: 5rem auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -298,9 +296,9 @@ section.container2 {
 .chat_box .archive_list { width: 100%; }
 .chat_box .archive_list a dl { border-bottom:1px solid #ddd; padding:0 0 2rem 0; margin:0 0 2rem 0; }
 .chat_box .archive_list a dl dt { font-weight:bold; color:#444746; font-size:1.25rem; margin-bottom:5px; }
-.chat_box .archive_list a dl dt span { font-size: .87rem; font-weight: bold; background: #f50; color:#fff; border-radius: .25rem; padding:.15rem .3rem; margin-right:.25rem }
-.chat_box .archive_list a dl dd p { margin-bottom: 5px; }
-.chat_box .archive_list a dl dd .hashtag code { font-size: .87rem; background: #ececec; border-radius: .25rem; padding:.15rem .3rem; margin-right:.25rem }
+.chat_box .archive_list a dl dd p { margin-bottom: 15px; }
+.hashtag code { font-size: .78rem; background: #e9eef6; border-radius: 4px; padding:5px 8px; margin-right:8px }
+.hashtag code.featured { background: #d3e3fd; color:#0842a0; }
 
 .portfoli_list { margin-top:30px; width: 100%; }
 .portfoli_list ul { height:100%; display: flex; flex-wrap: wrap; justify-content: space-between; }
@@ -373,6 +371,132 @@ section.container_part {
     background: #fff;
 }
 section.container_part h2 { font-size: 2rem; margin-bottom: 20px; font-weight: bold; }
+
+.page-enter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.page-enter.page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.archive_link {
+    display: block;
+}
+
+.archive_link:active {
+    transform: scale(0.995);
+}
+
+
+.sub_container { height: 100%;
+    background: #fff;
+    margin: 0 auto;
+padding:10rem 0; width: 75%;
+    max-width: 760px; }
+
+.back_to_list {
+    display: inline-block;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.sub_container .sub_title {
+    margin-bottom: 3rem;
+}
+
+.sub_container .sub_title h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.sub_container .sub_title p {
+    margin-bottom: 1rem;
+}
+
+.sub_container .summary {
+    margin-bottom: 3rem;
+}
+
+.sub_container .summary h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.sub_container .summary ul {
+    padding-left: 18px;
+    list-style: disc;
+}
+
+/* 이미지 공통 */
+.project-image {
+    margin: 1rem 0 3rem 0;
+}
+
+.project-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.project-image.main img {
+    border-radius: 8px;
+    width: 100%;
+}
+
+.img_caption {
+    font-size: 0.9rem;
+    color: #6f7378;
+    margin-top: 8px;
+}
+
+/* As-Is / To-Be 비교 */
+.image-compare {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.image-compare div {
+    flex: 1;
+}
+
+.image-compare .label {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.image-compare img { width: 100%; }
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.navigation a.back {
+    padding: 10px 18px;
+    background: #e9eef6;
+    border-radius: 999px;
+    font-weight: bold;
+}
+
+.navigation a.next {
+    padding: 10px 18px;
+    background: #111;
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
 
 /* -----------------------------------------------------------
    Media Query
