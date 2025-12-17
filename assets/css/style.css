@@ -296,7 +296,7 @@ section.container2 {
 .chat_box .archive_list { width: 100%; }
 .chat_box .archive_list a dl { border-bottom:1px solid #ddd; padding:0 0 2rem 0; margin:0 0 2rem 0; }
 .chat_box .archive_list a dl dt { font-weight:bold; color:#444746; font-size:1.25rem; margin-bottom:5px; }
-.chat_box .archive_list a dl dt:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.chat_box .archive_list a:hover dl dt { text-decoration: underline; text-decoration-thickness: 2px; }
 .chat_box .archive_list a dl dd p { margin-bottom: 15px; }
 .hashtag code { font-size: .78rem; background: #e9eef6; border-radius: 4px; padding:5px 8px; margin-right:8px }
 .hashtag code.featured { background: #d3e3fd; color:#0842a0; }
@@ -532,3 +532,119 @@ padding:10rem 0; width: 75%;
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* ================================
+   HERO INTRO ANIMATION
+================================ */
+.hero_title span img {
+    animation: spinOnce 1.2s ease-out forwards;
+}
+
+@keyframes spinOnce {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero_title h4,
+.hero_title h2 {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero_title.active h4 {
+    animation: fadeUp 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+}
+
+.hero_title.active h2 {
+    animation: fadeUp 0.8s ease-out forwards;
+    animation-delay: 1.2s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   CHAT INTERACTION
+================================ */
+.chat_q {
+    opacity: 0;
+    transform: translateX(60px);
+}
+
+.chat_q.show {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* typing dots */
+.chat_typing {
+    display: none;
+    margin: 50px 0 20px;
+    height: 16px;
+}
+
+.chat_typing span {
+    width: 6px;
+    height: 6px;
+    background: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    animation: typing 1.4s infinite;
+}
+
+.chat_typing span:nth-child(2) { animation-delay: .2s; }
+.chat_typing span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes typing {
+    0% { opacity: .3; }
+    50% { opacity: 1; }
+    100% { opacity: .3; }
+}
+
+/* chat answer */
+.chat_title,
+.chat_a p {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.chat_title.show {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.chat_a p.show {
+    animation: fadeUp 0.8s ease-out forwards;
+    animation-delay: .2s;
+}
+
+/* archive list */
+.archive_list a {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.archive_list.show a {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.archive_list.show a:nth-child(1) { animation-delay: .1s; }
+.archive_list.show a:nth-child(2) { animation-delay: .2s; }
+.archive_list.show a:nth-child(3) { animation-delay: .3s; }
+.archive_list.show a:nth-child(4) { animation-delay: .4s; }
+.archive_list.show a:nth-child(5) { animation-delay: .5s; }
+.archive_list.show a:nth-child(6) { animation-delay: .6s; }
+.archive_list.show a:nth-child(7) { animation-delay: .7s; }
+.archive_list.show a:nth-child(8) { animation-delay: .8s; }
+.archive_list.show a:nth-child(9) { animation-delay: .9s; }
+.archive_list.show a:nth-child(10){ animation-delay: 1s; }
