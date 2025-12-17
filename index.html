@@ -7,10 +7,57 @@
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/include.js" defer></script>
 </head>
 <body>
-    <div id="include-header"></div>
+    <header>
+        <h1 class="logo">
+            <a href="#">Heymini</a>
+        </h1>
+
+        <div class="header_center" id="headerCenter">
+            <div class="current_title">
+                <span id="headerTitle">포트폴리오</span>
+                <img src="./assets/images/arrow_down_icon.svg" class="arrow" alt="더보기">
+            </div>
+            
+            <ul class="dropdown_menu">
+                <li><a href="#section_home" data-name="아카이브">프로젝트 아카이브</a></li>
+                <li><a href="#section_uiux" data-name="UI/UX 디자인">UI/UX 디자인</a></li>
+                <li><a href="#section_contents" data-name="프로모션 디자인">프로모션 디자인</a></li>
+                <li><a href="#section_brand" data-name="마케팅/브랜딩 디자인">마케팅/브랜딩 디자인</a></li>
+                <li><a href="#ssection_detail data-name="상세 페이지 디자인">상세 페이지 디자인</a></li>
+            </ul>
+        </div>
+
+        <div class="head_profile">
+            <img src="./assets/images/profile_img.png" alt="프로필">
+        </div>
+    </header>
+
+    <nav class="site_lnb" id="sidebar">
+        <div class="lnb_btn">
+            <a href="#" id="toggleBtn"><img src="./assets/images/lnb_icon.svg" alt="메뉴"></a>
+        </div>
+        <ul class="lnb_menu">
+            <li>
+                <a href="#">
+                    <span class="icon">🏠</span> <span class="text">홈</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📁</span>
+                    <span class="text">포트폴리오</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:111">
+                    <span class="icon">🙋</span>
+                    <span class="text">연락주세요</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
     <section class="container hide-scrollbar" id="section1" data-title="홈">
         <div class="hero">
