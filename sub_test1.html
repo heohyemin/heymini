@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | Heymini</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
+        body {
+            color: #444746;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f4f8;
+            scroll-behavior: smooth;
+        }
+
+        body::-webkit-scrollbar { width: 6px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: #d3e3fd; border-radius: 10px; }
+
+        header {
+            height: 72px;
+            width: calc(100% - 80px);
+            margin: 0 0 0 80px;
+            position: fixed;
+            top: 0;
+            display: flex;
+            padding: 0 40px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 90;
+            background: rgba(240, 244, 248, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        nav.site_lnb {
+            width: 80px;
+            background: #e9eef6;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        /* Gemini Detail Card Style */
+        .detail_container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+        }
+
+        .gemini_card_section {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 24px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .image_placeholder {
+            background: linear-gradient(135deg, #f8faff 0%, #eef2f7 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px border #e1e5ea;
+        }
+
+        .chip {
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: #f1f3f4;
+            color: #5f6368;
+        }
+
+        .chip.blue { background: #d3e3fd; color: #0b57d0; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate_slide { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        @media (max-width: 768px) {
+            header { width: 100%; margin-left: 0; padding: 0 20px; }
+            nav.site_lnb { display: none; }
+            .detail_container { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="text-xl font-semibold"><a href="portfolio_update.html">Heymini</a></h1>
+        <div class="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full border border-gray-200">
+            <span class="text-sm font-medium">프로젝트 상세</span>
+        </div>
+        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile">
+        </div>
+    </header>
+
+    <nav class="site_lnb flex flex-col items-center py-6">
+        <div class="flex flex-col gap-8 mt-16">
+            <a href="portfolio_update.html" class="p-3 rounded-full hover:bg-white/50 transition-colors">🏠</a>
+            <div class="p-3 rounded-full bg-blue-100 text-blue-700">📁</div>
+        </div>
+    </nav>
+
+    <main class="detail_container">
+        <!-- 상단 타이틀 섹션 -->
+        <section class="animate_slide mb-12">
+            <a href="portfolio_update.html" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-blue-600 mb-6 transition-colors group">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                아카이브로 돌아가기
+            </a>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">NetworkBridge 리뉴얼</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="chip blue">UI/UX Design</span>
+                <span class="chip">Admin Dashboard</span>
+                <span class="chip">2024 Project</span>
+            </div>
+        </section>
+
+        <!-- 메인 이미지 -->
+        <div class="animate_slide image_placeholder aspect-video mb-12 shadow-sm" style="animation-delay: 0.1s;">
+            <div class="text-center">
+                <div class="text-5xl mb-4">🖥️</div>
+                <p class="text-gray-400 font-medium">Project Main Preview</p>
+            </div>
+        </div>
+
+        <!-- 상세 설명 카드 그리드 -->
+        <div class="grid grid-cols-1 gap-6">
+            <!-- 개요 -->
+            <section class="animate_slide gemini_card_section" style="animation-delay: 0.2s;">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-blue-600">01</span> 프로젝트 개요
+                </h3>
+                <p class="text-gray-600 leading-relaxed text-lg">
+                    보안 솔루션의 복잡한 네트워크 데이터를 관리자가 한눈에 파악할 수 있도록 대시보드 인터페이스를 재설계했습니다. 
+                    기존의 텍스트 위주 구성에서 시각적 위계 중심의 레이아웃으로 변경하여 운영 효율성을 30% 이상 향상시켰습니다.
+                </p>
+            </section>
+
+            <!-- 주요 역할 -->
+            <section class="animate_slide gemini_card_section" style="animation-delay: 0.3s;">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-blue-600">02</span> 주요 기여도
+                </h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-gray-800">UI/UX Design</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            사용자 인터뷰를 바탕으로 한 정보 구조(IA) 설계 및 피그마를 활용한 고해상도 프로토타이핑 수행.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-gray-800">Publishing</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Tailwind CSS와 JavaScript를 활용한 반응형 웹 구현. 차트 라이브러리 커스텀 및 애니메이션 인터랙션 적용.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 비주얼 디테일 (이미지 영역) -->
+            <section class="animate_slide grid md:grid-cols-2 gap-6" style="animation-delay: 0.4s;">
+                <div class="gemini_card_section !mb-0">
+                    <h4 class="font-bold mb-4">Color System</h4>
+                    <div class="flex gap-2">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 shadow-inner"></div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 shadow-inner"></div>
+                        <div class="w-10 h-10 rounded-full bg-gray-100 shadow-inner"></div>
+                    </div>
+                </div>
+                <div class="gemini_card_section !mb-0">
+                    <h4 class="font-bold mb-4">Typography</h4>
+                    <p class="text-2xl font-bold tracking-tight">Pretendard JP</p>
+                    <p class="text-xs text-gray-400">Regular / Medium / Bold</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- 하단 푸터 -->
+        <footer class="mt-20 py-12 border-t border-gray-200 text-center">
+            <p class="text-gray-400 text-sm mb-6">프로젝트에 대해 더 궁금하신가요?</p>
+            <div class="flex justify-center gap-4">
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition-all shadow-md">PDF 제안서 보기</button>
+                <a href="portfolio_update.html" class="px-8 py-3 bg-white border border-gray-200 rounded-full text-sm font-bold hover:bg-gray-50 transition-all">목록으로</a>
+            </div>
+        </footer>
+    </main>
+
+</body>
+</html>

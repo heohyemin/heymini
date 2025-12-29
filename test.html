@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heymini Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
+        /* 기존 스타일 가이드 유지 */
+        body {
+            color: #444746;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f4f8;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* 스크롤바 숨기기 */
+        body::-webkit-scrollbar { width: 6px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: #d3e3fd; border-radius: 10px; }
+
+        header {
+            height: 72px;
+            width: calc(100% - 80px);
+            margin: 0 0 0 80px;
+            position: fixed;
+            top: 0;
+            display: flex;
+            padding: 0 40px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 90;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(240, 244, 248, 0.8);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            margin-left: 0;
+            padding-left: 100px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        nav.site_lnb {
+            width: 80px;
+            background: #e9eef6;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        nav.expanded { width: 200px; }
+
+        .archive_card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .archive_card:hover {
+            background: #f8faff;
+            border-color: #d3e3fd;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .gemini_card_section {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 24px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .image_placeholder {
+            background: linear-gradient(135deg, #f8faff 0%, #eef2f7 100%);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e1e5ea;
+        }
+
+        .tag, .chip {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: #f1f3f4;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        .tag.primary, .chip.blue {
+            background: #d3e3fd;
+            color: #0b57d0;
+        }
+
+        .chip { padding: 6px 16px; border-radius: 12px; font-size: 0.875rem; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .chat-bubble { opacity: 0; transform: translateY(10px); }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #9ca3af;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .hidden-page {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        
+        .detail-view {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 100px;
+        }
+
+        @media (max-width: 768px) {
+            header { width: 100%; margin-left: 0; padding: 0 20px; }
+            header.scrolled { padding-left: 20px; }
+            nav.site_lnb { display: none; }
+            .container_content { padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="mainHeader">
+        <h1 class="text-xl font-semibold"><a href="javascript:location.reload()">Heymini</a></h1>
+        
+        <div class="hidden md:flex items-center gap-2 cursor-pointer bg-white/50 px-4 py-2 rounded-full border border-gray-200" id="headerCenter">
+            <span id="headerTitle" class="text-sm font-medium">포트폴리오</span>
+            <svg class="w-4 h-4 transition-transform" id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+
+        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile">
+        </div>
+    </header>
+
+    <nav class="site_lnb flex flex-col items-center py-6" id="sidebar">
+        <button id="toggleBtn" class="mb-10 p-2 hover:bg-gray-200 rounded-full transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div class="flex flex-col gap-8">
+            <a href="javascript:location.reload()" class="group flex items-center gap-4 px-3 py-2 rounded-r-full hover:bg-white/50">
+                <span class="text-xl">🏠</span>
+                <span class="sidebar-text opacity-0 group-hover:opacity-100 transition-opacity font-medium">홈</span>
+            </a>
+            <a href="#section_home" class="group flex items-center gap-4 px-3 py-2 rounded-r-full bg-blue-100">
+                <span class="text-xl">📁</span>
+                <span class="sidebar-text opacity-0 group-hover:opacity-100 transition-opacity font-medium text-blue-700">포트폴리오</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="container_content pt-20 md:pl-20">
+        
+        <div id="listView" class="page-transition">
+            <section class="min-h-[80vh] flex items-center justify-center px-6" id="section1" data-title="홈">
+                <div class="max-w-3xl w-full">
+                    <div class="mb-12">
+                        <h4 class="text-2xl md:text-3xl font-medium mb-4 flex items-center gap-3">
+                            <span class="animate-bounce">✨</span> 안녕하세요. Heymini 입니다.
+                        </h4>
+                        <h2 class="text-4xl md:text-6xl font-bold leading-tight">오늘 어떤 가치를<br>디자인해볼까요?</h2>
+                    </div>
+
+                    <div class="bg-white rounded-[32px] p-6 shadow-xl border border-gray-100 mb-8">
+                        <textarea class="w-full h-32 resize-none border-none focus:ring-0 text-lg placeholder-gray-400" placeholder="프로젝트에 대해 물어보세요..."></textarea>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex gap-4">
+                                <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">➕</button>
+                                <button class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded-full text-sm font-medium transition-colors">🛠️ 스택</button>
+                            </div>
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md">문의하기</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 px-6 max-w-6xl mx-auto" id="section_home" data-title="프로젝트 아카이브">
+                <div class="mb-12 flex flex-col gap-6" id="chatContainer">
+                    <div class="chat-bubble self-end bg-blue-50 px-6 py-4 rounded-[24px] rounded-tr-none max-w-md shadow-sm border border-blue-100" id="userBubble">
+                        <p class="text-blue-900 leading-relaxed">최근에 작업한 프로젝트들을 정리해서 보여줘.</p>
+                    </div>
+
+                    <div class="chat-bubble flex gap-4 max-w-2xl" id="aiBubble">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 shrink-0"></div>
+                        <div class="pt-1 w-full">
+                            <div id="aiTyping" class="bg-white px-4 py-3 rounded-2xl inline-flex items-center gap-1">
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                            </div>
+                            <div id="aiContent" class="hidden">
+                                <h4 class="text-xl font-bold mb-4">큐레이션된 프로젝트</h4>
+                                <p class="text-gray-600 leading-relaxed">기획의 의도를 완벽히 분석하고 최적화된 UX를 제공한 프로젝트들입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="archiveGrid">
+                    <!-- 초기 4개 노출 프로젝트 -->
+                    <div class="archive_card group">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">Featured Project</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 NetworkBridge 리뉴얼</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">운영 환경을 고려한 보안 솔루션 관리자 화면 UI/UX 디자인</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag primary">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card group">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">Web Application</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 FileBridge UX 개선</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">파일 관리 흐름을 중심으로 한 직관적인 관리자 대시보드 설계</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag primary">UI/UX 디자인</span>
+                                <span class="tag">App</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card group">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">Publishing</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 EduPlatform 고도화</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">비대면 교육 환경을 위한 인터랙티브 LMS 구축</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">퍼블리싱</span>
+                                <span class="tag">반응형</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card group">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">Branding</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 Brand SNS 컨설팅</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">브랜드 아이덴티티를 강화하는 디지털 마케팅 에셋 디자인</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">마케팅</span>
+                                <span class="tag">브랜딩</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 추가 데이터 (hidden 클래스로 제어) -->
+                    <div class="archive_card group hidden">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">R&D</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 Hidden Project Alpha</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">실험적 UI 디자인 및 Three.js 시각화 연구</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">실험적 UI</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card group hidden">
+                        <div class="flex flex-col h-full">
+                            <span class="text-xs font-bold text-blue-600 mb-2">Side Project</span>
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">📌 Hidden Project Beta</h3>
+                            <p class="text-gray-500 text-sm mb-4 flex-grow">개인 라이프스타일 관리를 위한 모바일 토이 앱</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">Toy Project</span>
+                                <span class="tag">App</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="moreBtnWrapper" class="mt-12 flex justify-center hidden">
+                    <button id="loadMoreBtn" class="flex items-center gap-2 px-10 py-4 bg-white border border-gray-200 rounded-full font-bold hover:bg-gray-50 hover:shadow-lg transition-all text-gray-600">
+                        더 많은 프로젝트 보기
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+      
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const header = document.getElementById("mainHeader");
+            const sidebar = document.getElementById("sidebar");
+            const toggleBtn = document.getElementById("toggleBtn");
+            const headerTitle = document.getElementById("headerTitle");
+            const loadMoreBtn = document.getElementById("loadMoreBtn");
+            
+            // 헤더 스크롤 처리
+            window.addEventListener("scroll", () => {
+                header.classList.toggle("scrolled", window.scrollY > 50);
+            });
+
+            // 사이드바 토글
+            toggleBtn.addEventListener("click", () => sidebar.classList.toggle("expanded"));
+
+            // 더보기 버튼 클릭 로직
+            loadMoreBtn.addEventListener("click", () => {
+                const hiddenCards = document.querySelectorAll("#archiveGrid .archive_card.hidden");
+                const countToDisplay = 4; // 한 번에 노출할 개수
+                
+                hiddenCards.forEach((card, index) => {
+                    if (index < countToDisplay) {
+                        card.classList.remove('hidden');
+                        card.classList.add('animate-in');
+                    }
+                });
+
+                // 더 이상 숨겨진 카드가 없으면 버튼 숨김
+                if (document.querySelectorAll("#archiveGrid .archive_card.hidden").length === 0) {
+                    document.getElementById('moreBtnWrapper').style.display = 'none';
+                }
+            });
+
+            // 섹션 감지 및 타이틀 업데이트
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !document.getElementById('listView').classList.contains('hidden-page')) {
+                        headerTitle.textContent = entry.target.getAttribute("data-title");
+                        if (entry.target.id === "section_home") startChatAnimation();
+                    }
+                });
+            }, { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" });
+
+            document.querySelectorAll("section").forEach(s => observer.observe(s));
+
+            function startChatAnimation() {
+                if (sessionStorage.getItem('chatAnimated')) {
+                    showChatDirectly();
+                    return;
+                }
+                
+                const userBubble = document.getElementById('userBubble');
+                const aiBubble = document.getElementById('aiBubble');
+                
+                setTimeout(() => { userBubble.classList.add('animate-in'); userBubble.style.opacity = '1'; }, 300);
+                setTimeout(() => { aiBubble.classList.add('animate-in'); aiBubble.style.opacity = '1'; }, 1000);
+                setTimeout(() => {
+                    document.getElementById('aiTyping').classList.add('hidden');
+                    document.getElementById('aiContent').classList.remove('hidden');
+                    document.getElementById('aiContent').classList.add('animate-in');
+                    
+                    // 초기 4개 노출 카드만 애니메이션
+                    const initialCards = document.querySelectorAll(".archive_card:not(.hidden)");
+                    initialCards.forEach((card, i) => {
+                        setTimeout(() => card.classList.add('animate-in'), i * 150);
+                    });
+
+                    // 숨겨진 카드가 있다면 더보기 버튼 표시
+                    if (document.querySelectorAll("#archiveGrid .archive_card.hidden").length > 0) {
+                        const wrapper = document.getElementById('moreBtnWrapper');
+                        wrapper.classList.remove('hidden');
+                        wrapper.classList.add('animate-in');
+                    }
+                }, 2200);
+                sessionStorage.setItem('chatAnimated', 'true');
+            }
+
+            function showChatDirectly() {
+                document.getElementById('userBubble').style.opacity = '1';
+                document.getElementById('aiBubble').style.opacity = '1';
+                document.getElementById('aiTyping').classList.add('hidden');
+                document.getElementById('aiContent').classList.remove('hidden');
+                document.querySelectorAll(".archive_card:not(.hidden)").forEach(c => c.style.opacity = '1');
+                if (document.querySelectorAll("#archiveGrid .archive_card.hidden").length > 0) {
+                    document.getElementById('moreBtnWrapper').classList.remove('hidden');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
