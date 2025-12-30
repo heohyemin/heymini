@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const header        = document.querySelector("header");
     const headerCenter  = document.getElementById("headerCenter");
     const headerTitle   = document.getElementById("headerTitle");
-    const dropdownLinks = document.querySelectorAll(".dropdown_menu a");
+    // const dropdownLinks = document.querySelectorAll(".dropdown_menu a");
 
     if (headerCenter) {
         headerCenter.addEventListener("click", () => {
@@ -106,32 +106,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    dropdownLinks.forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
+    // dropdownLinks.forEach(link => {
+    //     link.addEventListener("click", (e) => {
+    //         e.preventDefault();
 
-            const targetId      = link.getAttribute("href")?.substring(1);
-            const targetSection = document.getElementById(targetId);
-            const menuName      = link.getAttribute("data-name");
+    //         const targetId      = link.getAttribute("href")?.substring(1);
+    //         const targetSection = document.getElementById(targetId);
+    //         const menuName      = link.getAttribute("data-name");
 
-            if (targetSection) {
-                const headerHeight   = 80;
-                const targetPosition = targetSection.offsetTop - headerHeight;
+    //         if (targetSection) {
+    //             const headerHeight   = 80;
+    //             const targetPosition = targetSection.offsetTop - headerHeight;
 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: "smooth"
-                });
+    //             window.scrollTo({
+    //                 top: targetPosition,
+    //                 behavior: "smooth"
+    //             });
 
-                if (menuName && headerTitle) {
-                    headerTitle.textContent = menuName;
-                }
+    //             if (menuName && headerTitle) {
+    //                 headerTitle.textContent = menuName;
+    //             }
 
-                setTimeout(() => {
-                    headerCenter?.classList.remove("active");
-                }, 100);
-            }
-        });
+    //             setTimeout(() => {
+    //                 headerCenter?.classList.remove("active");
+    //             }, 100);
+    //         }
+    //     });
     });
 
     /* ==================================================
