@@ -301,7 +301,7 @@
     /* .bubble_user p { color: #1e3a8a; line-height: 1.6; margin: 0; } */
 
     .bubble_ai { display: flex; gap: 16px; max-width: 42rem; }
-    .ai_avatar { width: 32px; height: 32px; /*border-radius: 9999px; background: linear-gradient(to top right, #A388FB, #D87CDD);*/ background:url('/assets/images/logo_icon.svg') no-repeat 100%; flex-shrink: 0; }
+    .ai_avatar { width: 32px; height: 32px; /*border-radius: 9999px; background: linear-gradient(to top right, #A388FB, #D87CDD);*/ background:url('../images/logo_icon.svg') no-repeat 100%; flex-shrink: 0; }
     .ai_message_box { padding-top: 4px; width: 100%; }
     .typing_indicator { background: white; padding: 12px 16px; border-radius: 16px; display: inline-flex; align-items: center; gap: 4px; }
     .ai_content_text h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
