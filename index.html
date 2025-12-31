@@ -3,249 +3,733 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heymini</title>
+    <title>Heymini Portfolio</title>
     <link rel="stylesheet" href="./assets/css/reset.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="./assets/js/main.js"></script>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
+        /* 기존 스타일 가이드 유지 */
+        body {
+            color: #444746;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f4f8;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* 스크롤바 숨기기 */
+        body::-webkit-scrollbar { width: 6px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: #d3e3fd; border-radius: 10px; }
+
+        header {
+            height: 72px;
+            width: calc(100% - 80px);
+            margin: 0 0 0 80px;
+            position: fixed;
+            top: 0;
+            display: flex;
+            padding: 0 40px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 90;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(240, 244, 248, 0.8);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            margin-left: 0;
+            padding-left: 100px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        nav.site_lnb {
+            width: 80px;
+            background: #e9eef6;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+        }
+        nav.expanded { width: 200px; }
+
+        .archive_card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .archive_card:hover {
+            background: #f8faff;
+            border-color: #d3e3fd;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .gemini_card_section {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 24px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .image_placeholder {
+            background: linear-gradient(135deg, #f8faff 0%, #eef2f7 100%);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e1e5ea;
+        }
+
+        .tag, .chip {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: #f1f3f4;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        .tag.primary, .chip.blue {
+            background: #d3e3fd;
+            color: #0b57d0;
+        }
+
+        .chip { padding: 6px 16px; border-radius: 12px; font-size: 0.875rem; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .chat-bubble { opacity: 0; transform: translateY(10px); }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #9ca3af;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .hidden-page {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        
+        .detail-view {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 100px;
+        }
+
+        .header_logo { font-size: 1.25rem; font-weight: 600; }
+        .header_logo a { text-decoration: none; color: inherit; }
+        
+        .header_center_box {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid #e5e7eb;
+        }
+        .header_center_box span { font-size: 0.875rem; font-weight: 500; }
+        .header_center_box svg { width: 1rem; height: 1rem; }
+
+        .profile_avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .profile_avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .nav_toggle_btn {
+            margin-bottom: 40px;
+            padding: 8px;
+            border-radius: 9999px;
+            transition: background-color 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav_toggle_btn:hover { background-color: #e5e7eb; }
+        .nav_toggle_btn svg { width: 24px; height: 24px; }
+
+        .nav_links_container { display: flex; flex-direction: column; gap: 32px; width: 100%; }
+        .nav_item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 12px;
+            border-radius: 0 9999px 9999px 0;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s;
+        }
+        .nav_item:hover { background-color: rgba(255, 255, 255, 0.5); }
+        .nav_item.active { background-color: #dbeafe; }
+        .nav_item.active span:last-child { color: #1d4ed8; }
+        .nav_item span:first-child { font-size: 1.25rem; }
+        
+        .sidebar_text {
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        nav.expanded .sidebar_text { opacity: 1; }
+
+        .hero_section {
+            height: 100vh;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+        }
+        .hero_wrapper { max-width: 48rem; width: 100%; }
+        .hero_greeting { font-size: 1.5rem; font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .hero_greeting .emoji { display: inline-block; animation: bounce 1s infinite; }
+        .hero_title { font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 48px; }
+
+        .hero_box {
+            width: 100%;
+            min-height: 150px;
+            height: 100%;
+            padding: 20px 25px 15px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            border-radius: 2.0625rem;
+            background: #fff;
+            box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.10);
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hero_box_header { color:#6f7378; }
+        .hero_box_header textarea { width: 100%; height: 80px; resize: none; }
+        .hero_box_footer { display: inline-flex; justify-content: space-between; align-items: center; font-size:0.875rem; }
+        .hero_box_footer .plus_icon { margin-right: 30px; }
+        .hero_box_footer .tools_icon img { margin-right: 10px; }
+
+        .keyword { padding:0 20px; line-height: initial; }
+        .keyword ul { display: flex; justify-content: space-evenly; flex-direction: row; flex-wrap: wrap; align-items: center; }
+        .keyword ul li { display: contents; }
+        .keyword ul li a { border-radius: 200px; padding: 10px 20px; background: #fff; }
+        .keyword ul li a:hover { background:#e2e7eb; }
+
+
+        .btn_group { display: flex; gap: 16px; }
+        .icon_btn { padding: 8px; border-radius: 9999px; border: none; background: none; cursor: pointer; transition: background-color 0.2s; }
+        .icon_btn:hover { background-color: #f3f4f6; }
+        .tool_btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .tool_btn:hover { background-color: #f3f4f6; }
+        .primary_btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .primary_btn:hover { background-color: #1d4ed8; }
+
+        .archive_section { padding: 80px 24px; max-width: 1152px; margin: 0 auto; }
+        .chat_container { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
+        
+        .bubble_user {
+            align-self: flex-end;
+            background-color: #eff6ff;
+            padding: 16px 24px;
+            border-radius: 24px 24px 0 24px;
+            max-width: 28rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #dbeafe;
+        }
+        .bubble_user p { color: #1e3a8a; line-height: 1.6; margin: 0; }
+
+        .bubble_ai { display: flex; gap: 16px; max-width: 42rem; }
+        .ai_avatar { width: 32px; height: 32px; border-radius: 9999px; background: linear-gradient(to top right, #3b82f6, #a855f7); flex-shrink: 0; }
+        .ai_message_box { padding-top: 4px; width: 100%; }
+        .typing_indicator { background: white; padding: 12px 16px; border-radius: 16px; display: inline-flex; align-items: center; gap: 4px; }
+        .ai_content_text h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
+        .ai_content_text p { color: #4b5563; line-height: 1.6; margin: 0; }
+
+        .archive_grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        .card_inner { display: flex; flex-direction: column; height: 100%; }
+        .card_category { font-size: 0.75rem; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
+        .card_title { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; transition: color 0.2s; }
+        .archive_card:hover .card_title { color: #2563eb; }
+        .card_desc { color: #6b7280; font-size: 0.875rem; margin-bottom: 16px; flex-grow: 1; }
+        .card_tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .more_btn_wrapper { margin-top: 48px; display: flex; justify-content: center; }
+        .load_more_btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            font-weight: 700;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .load_more_btn:hover { background-color: #f9fafb; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .load_more_btn svg { width: 20px; height: 20px; }
+
+        .hidden { display: none !important; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+            50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+        }
+
+        @media (min-width: 768px) {
+            .header_center_box { display: flex; }
+            .hero_title { font-size: 3.75rem; }
+            .archive_grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            header { width: 100%; margin-left: 0; padding: 0 20px; }
+            header.scrolled { padding-left: 20px; }
+            nav.site_lnb { display: none; }
+            .container_content { padding-left: 0; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1 class="logo">
-            <a href="#">Heymini</a>
-        </h1>
 
-        <div class="header_center" id="headerCenter">
-            <div class="current_title">
-                <span id="headerTitle">포트폴리오</span>
-                <img src="./assets/images/arrow_down_icon.svg" class="arrow" alt="더보기">
-            </div>
-            
-            <ul class="dropdown_menu">
-                <li><a href="#section_home" data-name="아카이브">프로젝트 아카이브</a></li>
-                <li><a href="#section_uiux" data-name="UI/UX 디자인">UI/UX 디자인</a></li>
-                <li><a href="#section_contents" data-name="프로모션 디자인">프로모션 디자인</a></li>
-                <li><a href="#section_brand" data-name="마케팅/브랜딩 디자인">마케팅/브랜딩 디자인</a></li>
-                <li><a href="#ssection_detail" data-name="상세 페이지 디자인">상세 페이지 디자인</a></li>
-            </ul>
+    <header id="mainHeader">
+        <h1 class="header_logo"><a href="javascript:location.reload()">Heymini</a></h1>
+        
+        <div class="header_center_box" id="headerCenter">
+            <span id="headerTitle">포트폴리오</span>
+            <svg id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </div>
 
-        <div class="head_profile">
-            <img src="./assets/images/profile_img.png" alt="프로필">
+        <div class="profile_avatar">
+             <img src="./assets/images/profile_img.png" alt="프로필">
         </div>
     </header>
 
     <nav class="site_lnb" id="sidebar">
-        <div class="lnb_btn">
-            <a href="#" id="toggleBtn"><img src="./assets/images/lnb_icon.svg" alt="메뉴"></a>
+        <button id="toggleBtn" class="nav_toggle_btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div class="nav_links_container">
+            <a href="javascript:location.reload()" class="nav_item">
+                <span>🏠</span>
+                <span class="sidebar_text">홈</span>
+            </a>
+            <a href="#section_home" class="nav_item active">
+                <span>📁</span>
+                <span class="sidebar_text">포트폴리오</span>
+            </a>
         </div>
-        <ul class="lnb_menu">
-            <li>
-                <a href="#">
-                    <span class="icon">🏠</span> <span class="text">홈</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon">📁</span>
-                    <span class="text">포트폴리오</span>
-                </a>
-            </li>
-            <li>
-                <a href="tel:111">
-                    <span class="icon">🙋</span>
-                    <span class="text">연락주세요</span>
-                </a>
-            </li>
-        </ul>
     </nav>
 
-    <section class="container hide-scrollbar" id="section1" data-title="홈">
-        <div class="hero">
-            <div class="hero_title">
-                <h4><span><img src="./assets/images/logo_icon.svg" alt=""></span>안녕하세요. Heymini 입니다.</h4>
-                <h2>어떤 디자이너를 찾고 계신가요?</h2>
-            </div>
-            <div class="hero_box">
-                <div class="hero_box_header">
-                    <textarea placeholder="Heymini의 포트폴리오"></textarea>
-                </div>
-                <div class="hero_box_footer">
-                    <div class="box_f_left">
-                        <span class="plus_icon"><img src="./assets/images/plus_icon.svg" alt=""></span>
-                        <span class="tools_icon"><img src="./assets/images/tools_icon.svg" alt="">도구</span>
+    <main class="container_content">
+        <div id="listView" class="page-transition">
+            <section class="hero_section" id="section1" data-title="홈">
+                <div class="hero_wrapper">
+                    <div>
+                        <h4 class="hero_greeting">
+                            <span class="emoji"><img src="./assets/images/logo_icon.svg" alt=""></span> 안녕하세요. Heymini 입니다.
+                        </h4>
+                        <h2 class="hero_title">어떤 디자이너를<br />찾고 계신가요?</h2>
                     </div>
-                    <div class="box_f_right">
-                        <div class="drop_down">
-                            <select class="select">
-                                <option>구직 모드</option>
-                                <option>열일 모드</option>
-                                <option>휴가 모드</option>
-                            </select>
-                            <img class="arrow" src="./assets/images/arrow_down_icon.svg" alt="" />
+
+                    <div class="hero_box">
+                        <div class="hero_box_header">
+                            <textarea placeholder="Heymini의 포트폴리오"></textarea>
                         </div>
-                        <a class="mailto" href="mailto:heohm89@naver.com"><img src="./assets/images/mail_icon.svg" alt=""></a>
+                        <div class="hero_box_footer">
+                            <div class="box_f_left">
+                                <span class="plus_icon"><img src="./assets/images/plus_icon.svg" alt=""></span>
+                                <span class="tools_icon"><img src="./assets/images/tools_icon.svg" alt="">도구</span>
+                            </div>
+                            <!-- <div class="box_f_right">
+                                <div class="drop_down">
+                                    <select class="select">
+                                        <option>구직 모드</option>
+                                        <option>열일 모드</option>
+                                        <option>휴가 모드</option>
+                                    </select>
+                                    <img class="arrow" src="./assets/images/arrow_down_icon.svg" alt="" />
+                                </div>
+                                <a class="mailto" href="mailto:heohm89@naver.com"><img src="./assets/images/mail_icon.svg" alt=""></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="keyword">
+                        <ul>
+                            <li><a href="#section_uxui">🍌 UI/UX 디자인</a></li>
+                            <li><a href="#section_uxui">웹 퍼블리싱</a></li>
+                            <li><a href="#section_content">프로모션 디자인</a></li>
+                            <li><a href="#section_brand">마케팅 · 브랜딩</a></li>
+                            <li><a href="#section_detail">상세페이지</a></li>
+                        </ul>
+                    </div>
+                    <!-- <div class="input_card">
+                        <textarea placeholder="프로젝트에 대해 물어보세요..."></textarea>
+                        <div class="input_card_footer">
+                            <div class="btn_group">
+                                <button class="icon_btn">➕</button>
+                                <button class="tool_btn">🛠️ 스택</button>
+                            </div>
+                            <button class="primary_btn">문의하기</button>
+                        </div>
+                    </div> -->
+                </div>
+            </section>
+
+            <section class="archive_section" id="section_home" data-title="프로젝트 아카이브">
+                <div class="chat_container" id="chatContainer">
+                    <div class="chat-bubble bubble_user" id="userBubble">
+                        <p>그동안 작업했던 UI/UX, 퍼블리싱, 브랜드 디자인 프로젝트 아카이브를 한눈에 확인하고 싶어.</p>
+                    </div>
+
+                    <div class="chat-bubble bubble_ai" id="aiBubble">
+                        <div class="ai_avatar"></div>
+                        <div class="ai_message_box">
+                            <div id="aiTyping" class="typing_indicator">
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                            </div>
+                            <div id="aiContent" class="ai_content_text hidden">
+                                <h4>프로젝트 아카이브</h4>
+                                <p>네, 물론이죠. 사용자 경험(UX) 설계부터 디자인 의도를 완벽히 구현한 퍼블리싱 작업물까지, Hyemin의 주요 프로젝트들을 카테고리별로 큐레이션하여 보여드릴게요. 아래 리스트에서 각 분야의 결과물을 확인하실 수 있습니다.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="keyword">
-                <ul>
-                    <li><a href="#section_uxui">🍌 UI/UX 디자인</a></li>
-                    <li><a href="#section_uxui">웹 퍼블리싱</a></li>
-                    <li><a href="#section_content">프로모션 디자인</a></li>
-                    <li><a href="#section_brand">마케팅 · 브랜딩</a></li>
-                    <li><a href="#section_detail">상세페이지</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
 
-    <section class="container2" id="section_home" data-title="프로젝트 아카이브">        
-        <div class="chat_box">
-            <div class="chat_q">
-               그동안 작업했던 UI/UX, 퍼블리싱, 브랜드 디자인 프로젝트 아카이브를 한눈에 확인하고 싶어.
-            </div>
-            <div class="chat_a">
-                <div class="chat_typing">
-                    <span></span><span></span><span></span>
+                <div class="archive_grid" id="archiveGrid">
+                    <div class="archive_card">
+                        <div class="card_inner">
+                            <span class="card_category">Figma/Nuxt.js</span>
+                            <h3 class="card_title">NetworkBridge 리뉴얼</h3>
+                            <p class="card_desc">운영 환경을 고려한 보안 솔루션 관리자 화면 UI/UX 디자인</p>
+                            <div class="card_tags">
+                                <span class="tag primary">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card">
+                        <div class="card_inner">
+                            <span class="card_category">Figma/HTML/CSS</span>
+                            <h3 class="card_title">FileBridge UX 개선</h3>
+                            <p class="card_desc">파일 관리 흐름을 중심으로 한 관리자 UX 개선</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card">
+                        <div class="card_inner">
+                            <span class="card_category">HTML·CSS·JS</span>
+                            <h3 class="card_title">교육 서비스 무료체험 사이트 퍼블리싱</h3>
+                            <p class="card_desc">반응형 웹 퍼블리싱 100% 담당</p>
+                            <div class="card_tags">
+                                <span class="tag">Web</span>
+                                <span class="tag">퍼블리싱</span>
+                                <span class="tag">반응형</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card">
+                        <div class="card_inner">
+                            <span class="card_category">Figma</span>
+                            <h3 class="card_title">FileBridge PC Agent 리뉴얼</h3>
+                            <p class="card_desc">에이전트 사용 흐름을 고려한 UI 디자인</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">App</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Figma</span>
+                            <h3 class="card_title">NetDeskTop 사용자 화면 UI/UX 개선</h3>
+                            <p class="card_desc">멀티 디바이스 환경을 고려한 사용자 경험 설계</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">Agent</span>
+                                <span class="tag">App</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Figma</span>
+                            <h3 class="card_title">NB·FB·NDT 통합 모니터링</h3>
+                            <p class="card_desc">관리자 통합 대시보드 UX 기획·디자인</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Figma</span>
+                            <h3 class="card_title">교육 서비스 메인 페이지 리뉴얼 디자인</h3>
+                            <p class="card_desc">교육 서비스 메인 화면 리뉴얼 디자인</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                                <span class="tag">반응형</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Figma·HTML·CSS·JS</span>
+                            <h3 class="card_title">교과서 사이트 디자인 & 퍼블리싱</h3>
+                            <p class="card_desc">콘텐츠 중심 웹 디자인 및 퍼블리싱</p>
+                            <div class="card_tags">
+                                <span class="tag">UI/UX 디자인</span>
+                                <span class="tag">Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Photoshop/Illustrator</span>
+                            <h3 class="card_title">SNS · 웹진 · 채용공고 디자인</h3>
+                            <p class="card_desc">브랜드 톤에 맞춘 콘텐츠 디자인 작업</p>
+                            <div class="card_tags">
+                                <span class="tag">마케팅</span>
+                                <span class="tag">프로모션</span>
+                                <span class="tag">브랜딩</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive_card hidden">
+                        <div class="card_inner">
+                            <span class="card_category">Photoshop/Illustrator</span>
+                            <h3 class="card_title">상품 상세 이미지 디자인</h3>
+                            <p class="card_desc">상품 특성을 강조한 상세 페이지 디자인</p>
+                            <div class="card_tags">
+                                <span class="tag">마케팅</span>
+                                <span class="tag">상세페이지</span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-                <h4 class="chat_title">프로젝트 아카이브</h4>
-                <p>네, 물론이죠. 사용자 경험(UX) 설계부터 디자인 의도를 완벽히 구현한 퍼블리싱 작업물까지, Hyemin의 주요 프로젝트들을 카테고리별로 큐레이션하여 보여드릴게요. 아래 리스트에서 각 분야의 결과물을 확인하실 수 있습니다.</p>
-            </div>
-            <div class="archive_list">
-                <a href="./project/nb-admin-web.html" class="archive_link">
-                    <dl>
-                        <dt>📌 NetworkBridge 관리자 웹 UI/UX 리뉴얼</dt>
-                        <dd>
-                            <p>운영 환경을 고려한 보안 솔루션 관리자 화면 리뉴얼</p>
-                            <div class="hashtag">
-                                <!--<code class="featured">Featured</code>--><code>#UI/UX 디자인</code><code>#Web</code><code>#퍼블리싱</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/nb-admin-web.html" class="archive_link">
-                    <dl>
-                        <dt>📌 FileBridge 관리자 웹 UI/UX 개선</dt>
-                        <dd>
-                            <p>파일 관리 흐름을 중심으로 한 관리자 UX 개선</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#Web</code><code>#퍼블리싱</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/purunet-trial.html" class="archive_link">
-                    <dl>
-                        <dt>📌 교육 서비스 무료체험 사이트 퍼블리싱</dt>
-                        <dd>
-                            <p>반응형 웹 퍼블리싱 100% 담당</p>
-                            <div class="hashtag">
-                                <code>#퍼블리싱</code><code>#Web</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/fb-agent.html" class="archive_link">
-                    <dl>
-                        <dt>FileBridge PC Agent 리뉴얼</dt>
-                        <dd>
-                            <p>에이전트 사용 흐름을 고려한 UI 디자인</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#Agent</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/ndt-user-ui.html" class="archive_link">
-                    <dl>
-                        <dt>NetDeskTop 사용자 화면 UI/UX 개선</dt>
-                        <dd>
-                            <p>멀티 디바이스 환경을 고려한 사용자 경험 설계</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#Agent</code><code>#App</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/monitoring.html" class="archive_link">
-                    <dl>
-                        <dt>NB·FB·NDT 통합 모니터링</dt>
-                        <dd>
-                            <p>관리자 통합 대시보드 UX 기획·디자인</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#Web</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/edu-main-renewal.html" class="archive_link">
-                    <dl>
-                        <dt>교육 서비스 메인 페이지 리뉴얼 디자인</dt>
-                        <dd>
-                            <p>교육 서비스 메인 화면 리뉴얼 디자인</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#반응형</code><code>#프로모션</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/textbook-site.html" class="archive_link">
-                    <dl>
-                        <dt>교과서 사이트 디자인 & 퍼블리싱</dt>
-                        <dd>
-                            <p>콘텐츠 중심 웹 디자인 및 퍼블리싱</p>
-                            <div class="hashtag">
-                                <code>#UI/UX 디자인</code><code>#반응형</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/content-design.html" class="archive_link">
-                    <dl>
-                        <dt>SNS · 웹진 · 채용공고 디자인</dt>
-                        <dd>
-                            <p>브랜드 톤에 맞춘 콘텐츠 디자인 작업</p>
-                            <div class="hashtag">
-                                <code>#마케팅</code><code>#프로모션</code><code>#브랜딩</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-                <a href="./project/content-design.html" class="archive_link">
-                    <dl>
-                        <dt>상품 상세 이미지 디자인</dt>
-                        <dd>
-                            <p>상품 특성을 강조한 상세 페이지 디자인</p>
-                            <div class="hashtag">
-                                <code>#마케팅</code><code>#상세페이지</code>
-                            </div>
-                        </dd>
-                    </dl>
-                </a>
-            </div>
+
+                <div id="moreBtnWrapper" class="more_btn_wrapper hidden">
+                    <button id="loadMoreBtn" class="load_more_btn">
+                        더 많은 프로젝트 보기
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+            </section>
         </div>
-    </section>
-<!-- 
-    <section class="container_part" id="section_web" data-title="웹/모바일 디자인">
-        <h2>🍌 웹/모바일 디자인</h2>
-        <p>웹/모바일 디자인 포트폴리오 영역입니다.</p>
-    </section>
+    </main>
 
-    <section class="container_part" id="section_content" data-title="콘텐츠 디자인">
-        <h2>콘텐츠 디자인</h2>
-        <p>콘텐츠 디자인 포트폴리오 영역입니다.</p>
-    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const header = document.getElementById("mainHeader");
+            const sidebar = document.getElementById("sidebar");
+            const toggleBtn = document.getElementById("toggleBtn");
+            const headerTitle = document.getElementById("headerTitle");
+            const loadMoreBtn = document.getElementById("loadMoreBtn");
+            const listView = document.getElementById('listView');
+            
+            // 헤더 스크롤 처리
+            const handleScroll = () => {
+                header.classList.toggle("scrolled", window.scrollY > 50);
+            };
+            window.addEventListener("scroll", handleScroll);
 
-    <section class="container_part" id="section_detail" data-title="상세 페이지 디자인">
-        <h2>상세 페이지 디자인</h2>
-        <p>상세 페이지 디자인 포트폴리오 영역입니다.</p>
-    </section>
+            // 사이드바 토글
+            toggleBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("expanded");
+            });
 
-    <section class="container_part" id="section_etc" data-title="기타">
-        <h2>기타</h2>
-        <p>기타 작업물 영역입니다.</p>
-    </section> -->
+            // 더보기 버튼 클릭 로직
+            loadMoreBtn.addEventListener("click", () => {
+                const hiddenCards = document.querySelectorAll("#archiveGrid .archive_card.hidden");
+                const countToDisplay = 4;
+                
+                hiddenCards.forEach((card, index) => {
+                    if (index < countToDisplay) {
+                        card.classList.remove('hidden');
+                        card.classList.add('animate-in');
+                    }
+                });
+
+                if (document.querySelectorAll("#archiveGrid .archive_card.hidden").length === 0) {
+                    document.getElementById('moreBtnWrapper').classList.add('hidden');
+                }
+            });
+
+            // 섹션 감지 및 타이틀 업데이트
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !listView.classList.contains('hidden-page')) {
+                        const title = entry.target.getAttribute("data-title");
+                        headerTitle.textContent = title;
+                        
+                        if (entry.target.id === "section_home") {
+                            startChatAnimation();
+                        }
+                    }
+                });
+            }, { 
+                threshold: 0.2, 
+                rootMargin: "-72px 0px 0px 0px" 
+            });
+
+            document.querySelectorAll("section[data-title]").forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            function startChatAnimation() {
+                if (sessionStorage.getItem('chatAnimated')) {
+                    showChatDirectly();
+                    return;
+                }
+                
+                const userBubble = document.getElementById('userBubble');
+                const aiBubble = document.getElementById('aiBubble');
+                const aiTyping = document.getElementById('aiTyping');
+                const aiContent = document.getElementById('aiContent');
+                
+                setTimeout(() => { 
+                    userBubble.classList.add('animate-in'); 
+                    userBubble.style.opacity = '1'; 
+                }, 300);
+
+                setTimeout(() => { 
+                    aiBubble.classList.add('animate-in'); 
+                    aiBubble.style.opacity = '1'; 
+                }, 1000);
+
+                setTimeout(() => {
+                    aiTyping.classList.add('hidden');
+                    aiContent.classList.remove('hidden');
+                    aiContent.classList.add('animate-in');
+                    
+                    // 초기 4개 노출 카드만 애니메이션
+                    const initialCards = document.querySelectorAll(".archive_card:not(.hidden)");
+                    initialCards.forEach((card, i) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                            card.style.opacity = '1';
+                        }, i * 150);
+                    });
+
+                    // 숨겨진 카드가 있다면 더보기 버튼 표시
+                    const hiddenCards = document.querySelectorAll("#archiveGrid .archive_card.hidden");
+                    if (hiddenCards.length > 0) {
+                        const wrapper = document.getElementById('moreBtnWrapper');
+                        wrapper.classList.remove('hidden');
+                        wrapper.classList.add('animate-in');
+                    }
+                    
+                    sessionStorage.setItem('chatAnimated', 'true');
+                }, 2200);
+            }
+
+            function showChatDirectly() {
+                document.getElementById('userBubble').style.opacity = '1';
+                document.getElementById('aiBubble').style.opacity = '1';
+                document.getElementById('aiTyping').classList.add('hidden');
+                
+                const aiContent = document.getElementById('aiContent');
+                aiContent.classList.remove('hidden');
+                aiContent.style.opacity = '1';
+
+                document.querySelectorAll(".archive_card:not(.hidden)").forEach(card => {
+                    card.style.opacity = '1';
+                });
+
+                if (document.querySelectorAll("#archiveGrid .archive_card.hidden").length > 0) {
+                    const wrapper = document.getElementById('moreBtnWrapper');
+                    wrapper.classList.remove('hidden');
+                    wrapper.style.opacity = '1';
+                }
+            }
+        });
+    </script>
 </body>
-
-
 </html>
