@@ -3,122 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교육 서비스 메인 페이지 리뉴얼 디자인 | Heymini</title>
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>Project Detail | Heymini</title>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
+        body {
+            color: #444746;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f4f8;
+            scroll-behavior: smooth;
+            margin: 0;
+        }
+
+        body::-webkit-scrollbar { width: 6px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: #d3e3fd; border-radius: 10px; }
+
+        header {
+            height: 72px;
+            width: calc(100% - 80px);
+            margin: 0 0 0 80px;
+            position: fixed;
+            top: 0;
+            display: flex;
+            padding: 0 40px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 90;
+            background: rgba(240, 244, 248, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        .header_badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .profile_img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .profile_img img { width: 100%; height: 100%; object-fit: cover; }
+
+        nav.site_lnb {
+            width: 80px;
+            background: #e9eef6;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+        }
+
+        .nav_links {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .nav_icon {
+            padding: 12px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav_icon:hover { background: rgba(255, 255, 255, 0.5); }
+        .nav_icon.active { background: #d3e3fd; color: #0b57d0; }
+
+        /* Gemini Detail Card Style */
+        .detail_container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+        }
+
+        .gemini_card_section {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 24px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .image_placeholder {
+            background: linear-gradient(135deg, #f8faff 0%, #eef2f7 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 48px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .chip {
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: #f1f3f4;
+            color: #5f6368;
+        }
+
+        .chip.blue { background: #d3e3fd; color: #0b57d0; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate_slide { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .title_area { margin-bottom: 48px; }
+        .back_link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: #9ca3af;
+            text-decoration: none;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+        .back_link:hover { color: #2563eb; }
+        .back_link svg { width: 16px; height: 16px; transition: transform 0.2s; }
+        .back_link:hover svg { transform: translateX(-4px); }
+
+        .main_title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 24px 0;
+            line-height: 1.2;
+        }
+
+        .tag_group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .section_title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section_num { color: #2563eb; }
+
+        .content_text {
+            color: #4b5563;
+            line-height: 1.6;
+            font-size: 1.125rem;
+            margin: 0;
+        }
+
+        .comparison_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .info_list_title { font-weight: 700; margin-bottom: 16px; }
+        .info_list_title.asis { color: #ef4444; }
+        .info_list_title.tobe { color: #2563eb; }
+
+        .info_list {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 0.875rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        .info_list li { margin-bottom: 8px; }
+
+        .result_box {
+            background: #f9fafb;
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        .visual_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .color_chips { display: flex; gap: 8px; }
+        .color_circle { width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+
+        footer {
+            margin-top: 80px;
+            padding: 48px 0;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .footer_text { color: #9ca3af; font-size: 0.875rem; margin-bottom: 24px; }
+        .footer_btns { display: flex; justify-content: center; gap: 16px; }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border: none;
+        }
+        .btn_primary { background: #2563eb; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn_primary:hover { background: #1d4ed8; }
+        .btn_secondary { background: white; border: 1px solid #e5e7eb; color: #444746; }
+        .btn_secondary:hover { background: #f9fafb; }
+
+        @media (max-width: 768px) {
+            header { width: 100%; margin-left: 0; padding: 0 20px; }
+            nav.site_lnb { display: none; }
+            .detail_container { padding-top: 100px; }
+            .comparison_grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
+<body>
 
-<body class="page-enter">
-
-<header class="scrolled">
-    <h1 class="logo">
-        <a href="../index.html#section_home">Heymini</a>
-    </h1>
-    <div class="header_center" style="opacity:1; pointer-events:auto;">
-        <div class="current_title"><span>프로젝트 상세</span></div>
-    </div>
-    <div class="head_profile">
-        <img src="../assets/images/profile_img.png" alt="프로필">
-    </div>
-</header>
-
-<nav class="site_lnb" id="sidebar">
-    <div class="lnb_btn">
-        <a href="#" id="toggleBtn"><img src="../assets/images/lnb_icon.svg" alt="메뉴"></a>
-    </div>
-    <ul class="lnb_menu">
-        <li><a href="../index.html#section1"><span class="icon">🏠</span><span class="text">홈</span></a></li>
-        <li><a href="../index.html#section_home"><span class="icon">📁</span><span class="text">포트폴리오</span></a></li>
-        <li><a href="mailto:heohm89@naver.com"><span class="icon">🙋</span><span class="text">연락주세요</span></a></li>
-    </ul>
-</nav>
-
-<section class="sub_container">
-
-    <a href="../index.html#section_home" class="back_to_list">← Back to Portfolio</a>
-
-    <div class="sub_title">
-        <h2>교육 서비스 메인 페이지 리뉴얼 디자인</h2>
-        <p>
-            교육 서비스 메인 화면을 리뉴얼한 프로젝트로,
-            콘텐츠 전달력과 사용자 흐름을 중심으로 화면 구조와 시각적 우선순위를 재정리했습니다.
-        </p>
-        <div class="hashtag">
-            <code>#UI/UX디자인</code>
-            <code>#반응형</code>
-            <code>#프로모션</code>
+    <header>
+        <h1><a href="portfolio_update.html">Heymini</a></h1>
+        <div class="header_badge">
+            <span>프로젝트 상세</span>
         </div>
-    </div>
+        <div class="profile_img">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile">
+        </div>
+    </header>
 
-    <div class="project-image main">
-        <img src="../assets/images/edu-main/edu_main_to_be.png" alt="리뉴얼된 메인 화면">
-        <p class="img_caption">리뉴얼된 교육 서비스 메인 화면</p>
-    </div>
+    <nav class="site_lnb">
+        <div class="nav_links">
+            <a href="portfolio_update.html" class="nav_icon">🏠</a>
+            <div class="nav_icon active">📁</div>
+        </div>
+    </nav>
 
-    <div class="summary">
-        <h3>Project Summary</h3>
-        <p>
-            교육 서비스 메인 페이지는 콘텐츠가 많고 업데이트가 잦아,
-            사용자가 핵심 정보를 빠르게 스캔하고 다음 행동으로 이동할 수 있는 구조가 중요했습니다.
-            본 프로젝트에서는 콘텐츠 우선순위와 시각적 위계를 재정리하고,
-            서비스 톤을 유지하면서도 더 명확한 정보 구조로 리뉴얼했습니다.
-        </p>
-    </div>
-
-    <div class="summary">
-        <h3>As-Is 문제점</h3>
-        <ul>
-            <li>콘텐츠가 분산되어 핵심 정보 스캔이 어려움</li>
-            <li>프로모션/공지/핵심 영역의 위계가 불명확함</li>
-            <li>반응형 환경에서 UI 밀도 조정이 필요함</li>
-        </ul>
-
-        <div class="image-compare">
-            <div>
-                <span class="label">As-Is</span>
-                <img src="../assets/images/edu-main/edu_main_as_is.png" alt="기존 메인 화면">
+    <main class="detail_container">
+        <section class="animate_slide title_area">
+            <a href="portfolio_update.html" class="back_link">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                아카이브로 돌아가기
+            </a>
+            <h2 class="main_title">교육 서비스 메인 리뉴얼</h2>
+            <div class="tag_group">
+                <span class="chip blue">#UI/UX디자인</span>
+                <span class="chip">#반응형</span>
+                <span class="chip">#프로모션</span>
             </div>
-            <div>
-                <span class="label">To-Be</span>
-                <img src="../assets/images/edu-main/edu_main_to_be_compare.png" alt="개선된 메인 화면">
+        </section>
+
+        <div class="animate_slide image_placeholder" style="animation-delay: 0.1s;">
+            <div style="font-size: 3rem; margin-bottom: 16px;">📖</div>
+            <p style="color: #9ca3af; font-weight: 500; margin: 0;">리뉴얼된 교육 서비스 메인 화면</p>
+        </div>
+
+        <div class="card_wrapper">
+            <section class="animate_slide gemini_card_section" style="animation-delay: 0.2s;">
+                <h3 class="section_title">
+                    <span class="section_num">01</span> Project Summary
+                </h3>
+                <p class="content_text">
+                    교육 서비스 메인 페이지는 콘텐츠가 많고 업데이트가 잦아, 사용자가 핵심 정보를 빠르게 스캔하고 다음 행동으로 이동할 수 있는 구조가 중요했습니다. 본 프로젝트에서는 콘텐츠 우선순위와 시각적 위계를 재정리하고, 서비스 톤을 유지하면서도 더 명확한 정보 구조로 리뉴얼했습니다.
+                </p>
+            </section>
+
+            <section class="animate_slide gemini_card_section" style="animation-delay: 0.3s;">
+                <h3 class="section_title">
+                    <span class="section_num">02</span> 문제 해결 및 개선 방향
+                </h3>
+                <div class="comparison_grid">
+                    <div>
+                        <h4 class="info_list_title asis">As-Is 문제점</h4>
+                        <ul class="info_list">
+                            <li>콘텐츠가 분산되어 핵심 정보 스캔이 어려움</li>
+                            <li>프로모션/공지/핵심 영역의 위계가 불명확함</li>
+                            <li>반응형 환경에서 UI 밀도 조정이 필요함</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="info_list_title tobe">To-Be 개선 방향</h4>
+                        <ul class="info_list">
+                            <li>콘텐츠 성격별 섹션 구조 재정리</li>
+                            <li>핵심 CTA 중심의 시각적 우선순위 강화</li>
+                            <li>반응형 환경에서 정보 밀도 균형 조정</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="animate_slide gemini_card_section" style="animation-delay: 0.4s;">
+                <h3 class="section_title">
+                    <span class="section_num">03</span> 프로젝트 결과
+                </h3>
+                <div class="result_box">
+                    <p class="content_text" style="font-size: 1rem;">
+                        콘텐츠 전달력 및 메인 화면 완성도가 향상되었으며, 사용자 흐름이 명확해져 주요 영역 도달성이 크게 개선되었습니다.
+                    </p>
+                </div>
+            </section>
+
+            <section class="animate_slide visual_grid" style="animation-delay: 0.5s;">
+                <div class="gemini_card_section" style="margin-bottom: 0;">
+                    <h4 style="font-weight: 700; margin-bottom: 16px;">Color System</h4>
+                    <div class="color_chips">
+                        <div class="color_circle" style="background: #3b82f6;"></div>
+                        <div class="color_circle" style="background: #4f46e5;"></div>
+                        <div class="color_circle" style="background: white; border: 1px solid #e5e7eb;"></div>
+                    </div>
+                </div>
+                <div class="gemini_card_section" style="margin-bottom: 0;">
+                    <h4 style="font-weight: 700; margin-bottom: 16px;">Typography</h4>
+                    <p style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; margin: 0;">Pretendard</p>
+                    <p style="font-size: 0.75rem; color: #9ca3af; margin: 4px 0 0 0;">Variable / KR</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p class="footer_text">프로젝트에 대해 더 궁금하신가요?</p>
+            <div class="footer_btns">
+                <button class="btn btn_primary">상세 제안서 보기</button>
+                <a href="portfolio_update.html" class="btn btn_secondary">목록으로</a>
             </div>
-        </div>
-    </div>
-
-    <div class="summary">
-        <h3>To-Be 개선 방향</h3>
-        <ul>
-            <li>콘텐츠 성격별 섹션 구조 재정리</li>
-            <li>핵심 CTA 중심의 시각적 우선순위 강화</li>
-            <li>반응형 환경에서 정보 밀도 균형 조정</li>
-        </ul>
-
-        <div class="project-image">
-            <img src="../assets/images/edu-main/edu_main_detail.png" alt="메인 화면 구성 디테일">
-            <p class="img_caption">콘텐츠 우선순위에 맞춰 섹션 구조와 CTA를 재정리</p>
-        </div>
-    </div>
-
-    <div class="summary">
-        <h3>결과</h3>
-        <ul>
-            <li>콘텐츠 전달력 및 메인 화면 완성도 향상</li>
-            <li>사용자 흐름이 명확해져 주요 영역 도달성 개선</li>
-        </ul>
-    </div>
-
-    <div class="navigation">
-        <a href="../index.html#section_home" class="back">← Back</a>
-        <a href="./monitoring-dashboard.html" class="next">Next Project →</a>
-    </div>
-
-</section>
-
-<script>
-window.addEventListener('load', () => {
-    document.body.classList.add('page-enter-active');
-});
-</script>
+        </footer>
+    </main>
 
 </body>
 </html>
