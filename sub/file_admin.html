@@ -40,6 +40,7 @@
     </div>
 </nav>
 
+
 <section class="sub_container">
 
     <!-- Back -->
@@ -49,31 +50,31 @@
 
     <!-- Title -->
     <div class="sub_title">
-        <h2>네트워크 보안 솔루션 사이트 리뉴얼</h2>
+        <h2>파일 전송 관리자 솔루션 로그인 UX 리디자인</h2>
         <p>
-            운영 중인 네트워크 보안 솔루션 관리자 웹의 UI/UX를 개선한 프로젝트로,
-            실제 관리자 사용 흐름을 기준으로 화면 구조와 시각적 우선순위를 재정리했습니다.
+           운영 중인 보안 솔루션 환경에서 신뢰감과 가독성을 중심으로 로그인 경험을 개선하고,
+           기존 CSS를 유지한 채 custom.css 기반으로 적용한 프로젝트
         </p>
         <div class="card_tags">
             <span class="tag">UI/UX 디자인</span>
             <span class="tag">Web</span>
+            <span class="tag">Publishing</span>
         </div>
     </div>
 
     <!-- 대표 이미지 -->
     <div class="project-image main">
-        <img src="../assets/images/nb/nb_main_tobe.png" alt="개선된 NetworkBridge 관리자 메인 화면">
-        <p class="img_caption">개선된 관리자 메인 화면</p>
+        <img src="../assets/images/fb/fb_web.png" alt="개선된 파일 전송 관리자 솔루션 로그인 화면">
+        <p class="img_caption">개선된 파일 전송 관리자 솔루션 로그인 화면</p>
     </div>
 
     <!-- Project Summary -->
     <div class="summary">
         <h3>Project Summary</h3>
         <p>
-            네트워크 보안 솔루션 관리자은 다양한 정책·상태·로그 정보를 다루는 보안 솔루션으로,
-            기능 중심으로 구성된 기존 화면에서 정보 인지와 작업 흐름에 어려움이 있었습니다.
-            본 프로젝트에서는 기획과 디자인에 참여해 관리자 사용 시나리오를 기준으로
-            UI 구조를 재정리하고, 일부 프론트 기능 개선 작업에도 함께 참여했습니다.
+            파일 전송 관리자 솔루션 로그인 화면은 첫 진입 지점이라 신뢰감과 집중도가 중요했습니다.<br />
+            운영 중인 환경을 고려해 기존 스타일을 건드리지 않고, custom.css를 추가하는 방식으로
+            UI 개선과 퍼블리싱을 함께 진행했습니다.
         </p>
     </div>
 
@@ -81,20 +82,13 @@
     <div class="summary">
         <h3>As-Is 문제점</h3>
         <ul>
-            <li>기능 중심 화면 구성으로 정보 밀집도가 높음</li>
-            <li>상태·정책·로그 파악이 직관적이지 않음</li>
-            <li>관리자 주요 액션의 시각적 위계가 불명확함</li>
+           <li>시각적 위계가 약해 입력 영역과 주요 액션이 한눈에 들어오지 않음</li>
+            <li>보안 솔루션 특성에 필요한 ‘안정감/신뢰감’이 충분히 전달되지 않음</li>
+            <li>운영 중 서비스로 인해 기존 CSS 변경 시 리스크가 큼</li>
         </ul>
 
         <div class="image-compare">
-            <div>
-                <span class="label">As-Is</span>
-                <img src="../assets/images/nb/nb_as_is.png" alt="기존 관리자 화면">
-            </div>
-            <div>
-                <span class="label">To-Be</span>
-                <img src="../assets/images/nb/nb_to_be.png" alt="개선된 관리자 화면">
-            </div>
+            <img src="../assets/images/fb/fb_web_asis.png" alt="기존 관리자 화면">
         </div>
     </div>
 
@@ -102,26 +96,19 @@
     <div class="summary">
         <h3>To-Be 개선 방향</h3>
         <ul>
-            <li>정보 성격별 그룹화 및 레이아웃 재정리</li>
-            <li>상태·정책·사용 현황을 한눈에 파악할 수 있도록 UI 개선</li>
-            <li>관리자 작업 흐름을 고려한 버튼 및 인터랙션 구조 설계</li>
+             <li>입력/버튼 영역의 우선순위를 재정리해 가독성과 집중도 강화</li>
+            <li>보안 제품 톤에 맞는 안정적인 레이아웃과 시각 언어로 리디자인</li>
+            <li>기존 CSS는 유지하고 custom.css로만 덮어써서 롤백 가능한 적용 방식 선택</li>
         </ul>
-
-        <div class="project-image">
-            <img src="../assets/images/nb/nb_ui_detail.png" alt="정보 그룹화 UI 개선">
-            <p class="img_caption">
-                상태·정책 정보를 그룹화하여 관리자 판단 속도를 개선
-            </p>
-        </div>
     </div>
 
     <!-- Result -->
     <div class="summary">
         <h3>결과</h3>
         <ul>
-            <li>관리자 판단 속도 및 작업 효율 향상</li>
-            <li>운영 환경에 무리 없는 UI 개선</li>
-            <li>실제 서비스에 반영되어 운영 중</li>
+             <li>첫 진입 화면의 신뢰감과 정보 전달력 강화</li>
+            <li>입력/액션 구조가 정리되어 사용 흐름이 명확해짐</li>
+            <li>custom.css 제거 시 원복 가능한 구조로 운영 안정성 확보</li>
         </ul>
     </div>
 
@@ -141,3 +128,5 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
+ 
