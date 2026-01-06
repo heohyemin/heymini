@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetworkBridge 관리자 웹 UI/UX 개선 | Heymini</title>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/main.js"></script>
+</head>
+
+<body class="page-enter">
+
+<header id="mainHeader" class="scrolled">
+    <h1 class="header_logo"><a href="javascript:location.reload()">Heymini</a></h1>
+    
+    <div class="header_center_box" id="headerCenter">
+        <span id="headerTitle">포트폴리오</span>
+        <svg id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </div>
+
+    <div class="profile_avatar">
+            <img src="/assets/images/profile_img.png" alt="프로필">
+    </div>
+</header>
+
+<nav class="site_lnb" id="sidebar">
+    <button id="toggleBtn" class="nav_toggle_btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <div class="nav_links_container">
+        <a href="javascript:location.reload()" class="nav_item">
+            <span>🏠</span>
+            <span class="sidebar_text">홈</span>
+        </a>
+        <a href="#section_home" class="nav_item active">
+            <span>📁</span>
+            <span class="sidebar_text">포트폴리오</span>
+        </a>
+    </div>
+</nav>
+
+<section class="sub_container">
+
+    <!-- Back -->
+    <a href="../index.html#section_home" class="back_to_list">
+        ← Back to Portfolio
+    </a>
+
+    <!-- Title -->
+    <div class="sub_title">
+        <h2>교육 서비스 메인 리뉴얼</h2>
+        <p>
+            운영 중인 가상머신(VM) 사용자 화면 UI/UX 개선 프로젝트로,
+            PC·태블릿 환경에서 실제 사용 시나리오를 기준으로 화면을 재구성했습니다.
+        </p>
+        <div class="card_tags">
+            <span class="tag">UI/UX 디자인</span>
+            <span class="tag">반응형</span>
+        </div>
+    </div>
+
+    <!-- 대표 이미지 -->
+    <div class="project-image main">
+        <img src="../assets/images/ndt/ndt_main_pc.png" alt="가상머신(VM) 사용자 메인 화면">
+        <p class="img_caption">가상머신 사용자 메인 화면 (PC 환경)</p>
+    </div>
+
+    <!-- Project Summary -->
+    <div class="summary">
+        <h3>Project Summary</h3>
+        <p>
+            교육 서비스 메인 페이지는 콘텐츠가 많고 업데이트가 잦아, 사용자가 핵심 정보를 빠르게 스캔하고 다음 행동으로 이동할 수 있는 구조가 중요했습니다. 본 프로젝트에서는 콘텐츠 우선순위와 시각적 위계를 재정리하고, 서비스 톤을 유지하면서도 더 명확한 정보 구조로 리뉴얼했습니다.
+        </p>
+    </div>
+
+    <div class="summary">
+        <h3>As-Is 문제점</h3>
+        <ul>
+            <li>콘텐츠가 분산되어 핵심 정보 스캔이 어려움</li>
+            <li>프로모션/공지/핵심 영역의 위계가 불명확함</li>
+            <li>반응형 환경에서 UI 밀도 조정이 필요함</li>
+        </ul>
+    </div>
+
+
+    <div class="summary">
+        <h3>To-Be 개선 방향</h3>
+        <ul>
+            <li>콘텐츠 성격별 섹션 구조 재정리</li>
+            <li>핵심 CTA 중심의 시각적 우선순위 강화</li>
+            <li>반응형 환경에서 정보 밀도 균형 조정</li>
+        </ul>
+
+        <div class="image-compare">
+            <div>
+                <span class="label">PC</span>
+                <img src="../assets/images/ndt/ndt_pc.png" alt="PC 화면">
+            </div>
+            <div>
+                <span class="label">Tablet</span>
+                <img src="../assets/images/ndt/ndt_tablet.png" alt="Tablet 화면">
+            </div>
+        </div>
+    </div>
+
+    <div class="summary">
+        <h3>결과</h3>
+        <ul>
+            <li>콘텐츠 전달력 및 메인 화면 완성도가 향상</li>
+            <li>디바이스 간 경험 차이 감소</li>
+        </ul>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <a href="../index.html#section_home" class="back">← Back</a>
+        <a href="./fb-admin-web.html" class="next">Next Project →</a>
+    </div>
+
+</section>
+
+<script>
+window.addEventListener('load', () => {
+    document.body.classList.add('page-enter-active');
+});
+</script>
+
+</body>
+</html>

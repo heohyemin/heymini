@@ -3,34 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NB·FB·NDT 통합 모니터링 | Heymini</title>
+    <title>NetworkBridge 관리자 웹 UI/UX 개선 | Heymini</title>
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/main.js"></script>
 </head>
 
 <body class="page-enter">
 
-<header class="scrolled">
-    <h1 class="logo">
-        <a href="../index.html#section_home">Heymini</a>
-    </h1>
-    <div class="header_center" style="opacity:1; pointer-events:auto;">
-        <div class="current_title"><span>프로젝트 상세</span></div>
+<header id="mainHeader" class="scrolled">
+    <h1 class="header_logo"><a href="javascript:location.reload()">Heymini</a></h1>
+    
+    <div class="header_center_box" id="headerCenter">
+        <span id="headerTitle">포트폴리오</span>
+        <svg id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </div>
-    <div class="head_profile">
-        <img src="../assets/images/profile_img.png" alt="프로필">
+
+    <div class="profile_avatar">
+            <img src="/assets/images/profile_img.png" alt="프로필">
     </div>
 </header>
 
 <nav class="site_lnb" id="sidebar">
-    <div class="lnb_btn">
-        <a href="#" id="toggleBtn"><img src="../assets/images/lnb_icon.svg" alt="메뉴"></a>
+    <button id="toggleBtn" class="nav_toggle_btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <div class="nav_links_container">
+        <a href="javascript:location.reload()" class="nav_item">
+            <span>🏠</span>
+            <span class="sidebar_text">홈</span>
+        </a>
+        <a href="#section_home" class="nav_item active">
+            <span>📁</span>
+            <span class="sidebar_text">포트폴리오</span>
+        </a>
     </div>
-    <ul class="lnb_menu">
-        <li><a href="../index.html#section1"><span class="icon">🏠</span><span class="text">홈</span></a></li>
-        <li><a href="../index.html#section_home"><span class="icon">📁</span><span class="text">포트폴리오</span></a></li>
-        <li><a href="mailto:heohm89@naver.com"><span class="icon">🙋</span><span class="text">연락주세요</span></a></li>
-    </ul>
 </nav>
 
 <section class="sub_container">
@@ -38,19 +45,19 @@
     <a href="../index.html#section_home" class="back_to_list">← Back to Portfolio</a>
 
     <div class="sub_title">
-        <h2>NB·FB·NDT 통합 모니터링</h2>
+        <h2>관리자 솔루션 통합 모니터링</h2>
         <p>
-            NB, FB, NDT 서비스를 통합 관리하기 위해 새롭게 설계한
+            관리자 솔루션 서비스를 통합 관리하기 위해 새롭게 설계한
             통합 모니터링 대시보드 신규 프로젝트입니다.
             기존 UI가 존재하지 않던 환경에서 관리 효율 향상을 목표로
             정보 구조와 비주얼 시스템을 최초로 디자인했으며,
             여러 서비스의 상태와 핵심 지표를 단일 인터페이스에서
             통합적으로 탐색하고 모니터링할 수 있는 관리자 중심 UX/UI를 설계했습니다.
         </p>
-        <div class="hashtag">
-            <code>#UI/UX디자인</code>
-            <code>#Dashboard</code>
-            <code>#신규프로젝트</code>
+        <div class="card_tags">
+            <span class="tag">UI/UX 디자인</span>
+            <span class="tag">Web</span>
+            <span class="tag">Dashboard</span>
         </div>
     </div>
 
@@ -89,7 +96,7 @@
     <div class="summary">
         <h3>결과</h3>
         <ul>
-            <li>NB·FB·NDT 서비스 상태 및 지표를 단일 UI에서 통합 확인 가능</li>
+            <li>관리자 솔루션 서비스 상태 및 지표를 단일 UI에서 통합 확인 가능</li>
             <li>최초 설계 기반의 구조적 대시보드 UI/UX 구축 경험 확보</li>
         </ul>
     </div>

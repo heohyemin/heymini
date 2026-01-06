@@ -3,34 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>콘텐츠 디자인 (SNS·웹진·채용공고·상세 이미지) | Heymini</title>
+    <title>Heymini</title>
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/main.js"></script>
 </head>
 
 <body class="page-enter">
 
-<header class="scrolled">
-    <h1 class="logo">
-        <a href="../index.html#section_home">Heymini</a>
-    </h1>
-    <div class="header_center" style="opacity:1; pointer-events:auto;">
-        <div class="current_title"><span>프로젝트 상세</span></div>
+<header id="mainHeader" class="scrolled">
+    <h1 class="header_logo"><a href="javascript:location.reload()">Heymini</a></h1>
+    
+    <div class="header_center_box" id="headerCenter">
+        <span id="headerTitle">포트폴리오</span>
+        <svg id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </div>
-    <div class="head_profile">
-        <img src="../assets/images/profile_img.png" alt="프로필">
+
+    <div class="profile_avatar">
+            <img src="../assets/images/profile_img.png" alt="프로필">
     </div>
 </header>
 
 <nav class="site_lnb" id="sidebar">
-    <div class="lnb_btn">
-        <a href="#" id="toggleBtn"><img src="../assets/images/lnb_icon.svg" alt="메뉴"></a>
+    <button id="toggleBtn" class="nav_toggle_btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <div class="nav_links_container">
+        <a href="javascript:location.reload()" class="nav_item">
+            <span>🏠</span>
+            <span class="sidebar_text">홈</span>
+        </a>
+        <a href="#section_home" class="nav_item active">
+            <span>📁</span>
+            <span class="sidebar_text">포트폴리오</span>
+        </a>
     </div>
-    <ul class="lnb_menu">
-        <li><a href="../index.html#section1"><span class="icon">🏠</span><span class="text">홈</span></a></li>
-        <li><a href="../index.html#section_home"><span class="icon">📁</span><span class="text">포트폴리오</span></a></li>
-        <li><a href="mailto:heohm89@naver.com"><span class="icon">🙋</span><span class="text">연락주세요</span></a></li>
-    </ul>
 </nav>
 
 <section class="sub_container">
@@ -43,11 +50,11 @@
             브랜드 톤에 맞춘 SNS 이미지, 웹진, 채용공고, 상품 상세 이미지 디자인 작업을 진행했습니다.
             채널별 목적에 맞게 메시지 구조를 정리하고, 톤앤매너를 일관되게 유지하는 것을 목표로 했습니다.
         </p>
-        <div class="hashtag">
-            <code>#마케팅</code>
-            <code>#브랜딩</code>
-            <code>#프로모션</code>
-            <code>#상세페이지</code>
+        <div class="card_tags">
+            <span class="tag">마케팅</span>
+            <span class="tag">브랜딩</span>
+            <span class="tag">프로모션</span>
+            <span class="tag">상세페이지</span>
         </div>
     </div>
 
@@ -66,23 +73,6 @@
         </p>
     </div>
 
-    <!-- <div class="summary">
-        <h3>As-Is 문제점</h3>
-        <ul>
-            <li>채널별 디자인 톤이 달라 브랜드 일관성이 약해질 수 있음</li>
-            <li>텍스트 중심 구성 시 정보 우선순위가 흐려질 수 있음</li>
-            <li>다양한 규격(정사각/세로/가로) 대응 기준이 필요</li>
-        </ul>
-    </div>
-
-    <div class="summary">
-        <h3>To-Be 개선 방향</h3>
-        <ul>
-            <li>브랜드 톤앤매너 기준(색/타이포/여백)을 정해 일관성 유지</li>
-            <li>메시지 우선순위를 정리해 헤드라인/서브 정보 구조화</li>
-            <li>채널 규격별 템플릿화를 통해 빠르게 제작 가능한 구조 마련</li>
-        </ul>
-    </div> -->
 
     <!-- 그리드 섹션 -->
     <div class="summary">
@@ -95,7 +85,7 @@
             <a href="../assets/images/content/content_grid_02.jpg" target="_blank">
                 <img src="../assets/images/content/content_grid_02.jpg" alt="콘텐츠 썸네일 2">
             </a>
-            <a href="../assets/images/content/content_grid_03.png" target="_blank">
+            <!-- <a href="../assets/images/content/content_grid_03.png" target="_blank">
                 <img src="../assets/images/content/content_grid_03.png" alt="콘텐츠 썸네일 3">
             </a>
             <a href="../assets/images/content/content_grid_04.png" target="_blank">
@@ -106,7 +96,7 @@
             </a>
             <a href="../assets/images/content/content_grid_06.png" target="_blank">
                 <img src="../assets/images/content/content_grid_06.png" alt="콘텐츠 썸네일 6">
-            </a>
+            </a> -->
         </div>
 
         <div class="project-image">
