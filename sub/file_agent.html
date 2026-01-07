@@ -130,6 +130,13 @@
 </section>
 
 <script>
+async function loadInclude() {
+    const headerRes = await fetch("../header.html");
+    document.getElementById("header-include").innerHTML = await headerRes.text();
+}
+
+loadInclude();
+
 window.addEventListener('load', () => {
     document.body.classList.add('page-enter-active');
 });

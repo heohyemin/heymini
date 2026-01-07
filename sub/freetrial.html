@@ -11,34 +11,7 @@
 
 <body class="page-enter">
 
-<header id="mainHeader" class="scrolled">
-    <h1 class="header_logo"><a href="javascript:location.reload()">Heymini</a></h1>
-    
-    <div class="header_center_box" id="headerCenter">
-        <span id="headerTitle">포트폴리오</span>
-        <svg id="headerArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-
-    <div class="profile_avatar">
-        <img src="../assets/images/profile_img.png" alt="프로필">
-    </div>
-</header>
-
-<nav class="site_lnb" id="sidebar">
-    <button id="toggleBtn" class="nav_toggle_btn">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-    </button>
-    <div class="nav_links_container">
-        <a href="javascript:location.reload()" class="nav_item">
-            <span>🏠</span>
-            <span class="sidebar_text">홈</span>
-        </a>
-        <a href="#section_home" class="nav_item active">
-            <span>📁</span>
-            <span class="sidebar_text">포트폴리오</span>
-        </a>
-    </div>
-</nav>
+<div id="header-include"></div>
 
 
 <section class="sub_container">
@@ -108,6 +81,13 @@
 </section>
 
 <script>
+async function loadInclude() {
+    const headerRes = await fetch("../header.html");
+    document.getElementById("header-include").innerHTML = await headerRes.text();
+}
+
+loadInclude();
+
 window.addEventListener('load', () => {
     document.body.classList.add('page-enter-active');
 });
