@@ -286,7 +286,9 @@
     }
     .primary_btn:hover { background-color: #1d4ed8; }
 
-    .archive_section { padding: 8rem 24px; max-width: 60rem; margin: 0 auto; /*height:100vh; display: flex; flex-direction: column; justify-content: center;*/ }
+    .archive_section {padding: 8rem 24px;
+    max-width: 60rem;
+    margin: 0 auto; }
     .chat_container { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
     
     .bubble_user {
@@ -355,7 +357,7 @@
 
 .sub_container { height: 100%;
  margin: 0 auto;
-padding:10rem 24px; width: 75%; max-width: 60rem;
+padding:10rem 24px; max-width: 60rem;
     /*background: #fff; max-width: 760px; */}
 
 .back_to_list {
@@ -372,6 +374,7 @@ padding:10rem 24px; width: 75%; max-width: 60rem;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
+    line-height:2.5rem;
 }
 
 .sub_container .sub_title p {
