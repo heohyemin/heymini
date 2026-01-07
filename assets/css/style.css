@@ -355,7 +355,7 @@
 
 .sub_container { height: 100%;
  margin: 0 auto;
-padding:10rem 0; width: 75%; max-width: 48rem;
+padding:10rem 24px; width: 75%; max-width: 60rem;
     /*background: #fff; max-width: 760px; */}
 
 .back_to_list {
